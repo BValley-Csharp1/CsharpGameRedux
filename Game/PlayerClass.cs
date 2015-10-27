@@ -10,7 +10,7 @@ namespace Game
     {
         string name;
         string history;
-
+        // TEST
         public Player()
         {
             //Loop for selecting desired player.
