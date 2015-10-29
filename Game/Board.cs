@@ -9,7 +9,7 @@ namespace Game
 {
     class Board
     {
-        Tile[,] board;
+        public Tile[,] board;
         int height;
         int length;        
 
@@ -24,7 +24,7 @@ namespace Game
             //Nested for loops that creates the 2d array of # as a game board
             for (int i = 0; i <= x - 1; i++){
                for (int j = 0; j <= y - 1; j++ ){
-                board[i,j] = new Tile ("#", ConsoleColor.Magenta);       
+                board[i,j] = new Tile ("#", ConsoleColor.DarkMagenta);       
                }
              }
             createRoom();
@@ -95,17 +95,33 @@ namespace Game
             playerY = StaticRandom.Instance.Next(0, length - 1);
 
         }
+
         board[playerX, playerY].color = ConsoleColor.White;
         board[playerX, playerY].playerHere = true;
         board[playerX, playerY].symbol = "@";
 
     }
-        /*Create a function for creating the room
-         * It will take 4 parameters, a height, a width, and then how the height and the 
-         * width of the room.
-         * dungeon will call that function depending on how many rooms, recieve the center coordinate
-         * for each room and create corridors leading to it so each room is accessible.         
-         */        
-      }
+        public void placeObject(string n, string s)
+        {
+            //pass in object and symbol or list of possible ascii locations
+            
+            //Generates player coordinates
+            int X = StaticRandom.Instance.Next(0, height - 1);
+            int Y = StaticRandom.Instance.Next(0, length - 1);
+
+            //While player coordinates are on a wall or stairs loop with new coordinates
+            while (board[X, Y].symbol == "#" || board[X, Y].symbol == ">")
+            {
+                X = StaticRandom.Instance.Next(0, height - 1);
+                Y = StaticRandom.Instance.Next(0, length - 1);
+
+            }
+
+            board[X, Y].color = ConsoleColor.White;
+            board[X, Y].playerHere = true;
+            board[X, Y].symbol = "@";
+
+        }       
+    }
     }
 

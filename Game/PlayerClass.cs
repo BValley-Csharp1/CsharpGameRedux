@@ -68,6 +68,7 @@ namespace Game
             //returns the concatenated history of player
             return background + phrase + job + phrase2 + extra;
         }
+       
     }
 
 }
