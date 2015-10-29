@@ -10,9 +10,32 @@ namespace Game
 
     class Program
     {
+        public static void playerMove(int x, int y, Board b)
+        {
 
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            switch (keyInfo.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    b.board[x,y].symbol = ".";
+                    x -= 1;
+                    //Finish movement
+                    break;
+                case ConsoleKey.DownArrow:
+                    Console.WriteLine("Down");
+                    break;
+                case ConsoleKey.RightArrow:
+                    Console.WriteLine("Right");
+                    break;
+                case ConsoleKey.LeftArrow:
+                    Console.WriteLine("Left");
+                    break;
+            }
+
+        }
         static void Main(string[] args)
         {
+
             /*
             //Creates the player 
             Player player = new Player();
@@ -47,7 +70,6 @@ namespace Game
             } while (c_class < 1 || c_class > 6);
 
             Player p1 = new Player(c_class);
-
 
         }
     }
