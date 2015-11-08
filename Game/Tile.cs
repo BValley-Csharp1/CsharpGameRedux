@@ -12,6 +12,7 @@ namespace Game
         public ConsoleColor color { get; set; }
         public bool playerHere { get; set; }
         public bool stairsHere { get; set; }
+
         //Checks to see if player can move past the tile
         public bool isPassable { get; set; }
         

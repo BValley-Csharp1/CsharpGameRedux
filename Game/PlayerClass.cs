@@ -8,6 +8,8 @@ namespace Game
 {
     class Player
     {
+        public int coordY;
+        public int coordX;
         int moxie;
         int aggression;
         int humor;
@@ -16,9 +18,11 @@ namespace Game
             fighter, frat, lover, gentleman, joker, klutz
         }
         public Player(int c_class)
+       
         {
             
         }
+       
        
     }
 }

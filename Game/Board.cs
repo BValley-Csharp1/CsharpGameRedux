@@ -11,7 +11,10 @@ namespace Game
     {
         public Tile[,] board;
         int height;
-        int length;        
+        int length;
+        int i;
+        int j;
+        List<int[]> midpoints = new List<int[]>();
 
         public Board(int x, int y)
         {
@@ -24,31 +27,66 @@ namespace Game
             //Nested for loops that creates the 2d array of # as a game board
             for (int i = 0; i <= x - 1; i++){
                for (int j = 0; j <= y - 1; j++ ){
-                board[i,j] = new Tile ("#", ConsoleColor.DarkMagenta);       
+                    board[i,j] = new Tile ("#", ConsoleColor.Blue);
+                    board[i, j].isPassable = false;     
                }
              }
-            createRoom();
-            placeStairs();
-            placePlayer();
-        
-        }
+            int roomx = 1;
+            int roomh = 15;
 
-        //Function used to create a room    
-        public void createRoom()
-        {
-            for (int i = 0; i <= height - 1; i++)
+            int roomy = 1;
+            int rooml = 15;
+
+            if (checkRoom(roomx, roomy, roomh, rooml))
             {
-                for (int j = 0; j <= length - 1; j++)
+                createRoom(roomx, roomy, roomh, rooml);
+
+            }
+            placeStairs();
+        
+        }   
+        public bool checkRoom(int x, int y, int h, int l)
+        {
+            //Loop starts at x and y coordinate to only loop through potential room
+            for (i = x; i < x + h; i++)
+            {
+                for (j = y; j < y + l; j++)
                 {
-                    if (i > 0 & i < height - 1)
+                    //If statement for checking the height and width
+                    if (i >= height - 2 || j >= length - 2)
                     {
-                        if (j > 0 & j < length - 1)
-                            board[i, j].symbol = ".";
+                        return false;
+                    }
+                    //Checks if its a wall
+                    if (board[i, j].symbol != "#")
+                    {
+                        return false;
                     }
                 }
             }
+            return true;
         }
-        
+
+        public void createRoom(int x, int y, int h, int l)
+        {
+            //Sets the midpoint for each room
+            int mpX = h / 2 + x;
+            int mpY = l / 2 + y;
+
+            //Loop for creating a room in desired area and width and height.
+            for (i = x; i < x + h; i++)
+            {
+                for (j = y; j < y + l; j++)
+                {
+                  board[i, j].color = ConsoleColor.Gray;
+                  board[i, j].isPassable = true;
+                  board[i, j].symbol = ".";
+                }
+            }
+            midpoints.Add(new int[] { mpX, mpY });
+
+        }
+
         //Showboard method
         public void showBoard()
         {
@@ -56,8 +94,13 @@ namespace Game
             {
                 for (int j = 0; j <= length - 1; j++)
                 {
+                    if (board[i, j].playerHere == true)
+                    {
+                        board[i, j].symbol = "@";
+                        board[i, j].color = ConsoleColor.White;
+                    }                                      
                     Console.ForegroundColor = board[i, j].color;
-                    Console.Write(board[i, j].symbol);                    
+                    Console.Write(board[i, j].symbol);                                      
                 }
                 Console.WriteLine("");
             }     
@@ -82,11 +125,15 @@ namespace Game
 
 
     }
-    public void placePlayer()
+    public Player placePlayer(int x, int y, Player p)
     {
-        //Generates player coordinates
-        int playerX = StaticRandom.Instance.Next(0, height - 1);
-        int playerY = StaticRandom.Instance.Next(0,length - 1);
+        Player player = p;        
+        int playerX = x;
+        int playerY = y;
+
+       //Generates player coordinates
+        playerX = StaticRandom.Instance.Next(0, height - 1);
+        playerY = StaticRandom.Instance.Next(0,length - 1);
 
         //While player coordinates are on a wall or stairs loop with new coordinates
         while (board[playerX, playerY].symbol == "#" || board[playerX, playerY].symbol == ">")
@@ -95,12 +142,16 @@ namespace Game
             playerY = StaticRandom.Instance.Next(0, length - 1);
 
         }
-
-        board[playerX, playerY].color = ConsoleColor.White;
         board[playerX, playerY].playerHere = true;
         board[playerX, playerY].symbol = "@";
 
-    }
+        //Sets player location to player.
+        player.coordY = playerY;
+        player.coordX = playerX;
+
+        return player;
+
+        }
         public void placeObject(string n, string s)
         {
             //pass in object and symbol or list of possible ascii locations
