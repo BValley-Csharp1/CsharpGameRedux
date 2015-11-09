@@ -78,7 +78,7 @@ namespace Game
             Console.ReadKey();*/
             
 
-            /*
+            
             Console.WriteLine("Choose a character class");
             Console.WriteLine("1. Fighter \n" +
                               "2. Frat \n" +
@@ -100,7 +100,7 @@ namespace Game
             } while (c_class < 1 || c_class > 6);
 
             Player p1 = new Player(c_class);
-            */
+            
     
         }
     }
