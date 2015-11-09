@@ -18,7 +18,6 @@ namespace Game
             fighter, frat, lover, gentleman, joker, klutz
         }
         public Player(int c_class)
-       
         {
             
         }

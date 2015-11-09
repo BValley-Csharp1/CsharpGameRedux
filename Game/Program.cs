@@ -64,6 +64,7 @@ namespace Game
         static void Main(string[] args)
         {
             /*
+            Player player = new Player();
             Board board = new Board(20,20);         
             board.placePlayer(player.coordX, player.coordY, player);
             board.showBoard();
@@ -74,10 +75,10 @@ namespace Game
                 playerMove(player.coordX, player.coordY, board, player);                
             }
             
-            Console.ReadKey();
-            */
-
+            Console.ReadKey();*/
             
+
+            /*
             Console.WriteLine("Choose a character class");
             Console.WriteLine("1. Fighter \n" +
                               "2. Frat \n" +
@@ -99,7 +100,7 @@ namespace Game
             } while (c_class < 1 || c_class > 6);
 
             Player p1 = new Player(c_class);
-            
+            */
     
         }
     }
