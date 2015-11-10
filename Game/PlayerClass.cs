@@ -13,7 +13,12 @@ namespace Game
         int aggression;
         int moxie;
         int humor;
-        public Player(int c_class)
+        List<int> evidence = new List<int>();
+        public Player(int c)
+        {
+            determineClass(c);
+        }
+        private void determineClass(int c_class)
         {
             if (c_class == 1)
             { // Fighter
@@ -51,9 +56,7 @@ namespace Game
                 moxie = 3;
                 humor = 9;
             }
-
         }
-       
        
     }
 }
