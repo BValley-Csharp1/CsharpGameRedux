@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game
 {
@@ -10,7 +7,7 @@ namespace Game
     {
         public int coordY;
         public int coordX;
-        int aggression;
+        int aggression; // Stats
         int moxie;
         int humor;
         List<int> evidence = new List<int>();
@@ -18,6 +15,7 @@ namespace Game
         {
             determineClass(c);
         }
+
         private void determineClass(int c_class)
         {
             if (c_class == 1)
@@ -57,6 +55,5 @@ namespace Game
                 humor = 9;
             }
         }
-       
     }
 }
