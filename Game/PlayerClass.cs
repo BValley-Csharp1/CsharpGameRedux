@@ -10,36 +10,47 @@ namespace Game
     {
         public int coordY;
         public int coordX;
-        int moxie;
         int aggression;
+        int moxie;
         int humor;
-        public enum charclass
-        {
-            fighter, frat, lover, gentleman, joker, klutz
-        }
         public Player(int c_class)
         {
-            charclass playerClass = new charclass();
-            
-            case (c_class == 1):
-                playerClass = charclass.fighter;
-                break;
-
-            case (c_class == 2):
-                playerClass = charclass.frat;
-                break;
-            case (c_class == 3):
-                playerClass = charclass.lover;
-                break;
-            case (c_class == 4):
-                playerClass = charclass.gentleman;
-                break;
-            case (c_class == 5):
-                playerClass = charclass.joker;
-                break;
-            case (c_class == 6):
-                playerClass = charclass.klutz;
-                break;
+            if (c_class == 1)
+            { // Fighter
+                aggression = 9;
+                moxie = 3;
+                humor = 5;
+            }
+            else if (c_class == 2)
+            { // Frat
+                aggression = 9;
+                moxie = 5;
+                humor = 3;
+            }
+            else if (c_class == 3)
+            { // Lover
+                aggression = 3;
+                moxie = 9;
+                humor = 5;
+            }
+            else if (c_class == 4)
+            { // Gentleman
+                aggression = 5;
+                moxie = 9;
+                humor = 3;
+            }
+            else if (c_class == 5)
+            { // Joker
+                aggression = 3;
+                moxie = 5;
+                humor = 9;
+            }
+            else if (c_class == 6)
+            { // Klutz
+                aggression = 5;
+                moxie = 3;
+                humor = 9;
+            }
 
         }
        
