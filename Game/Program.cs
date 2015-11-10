@@ -10,45 +10,75 @@ namespace Game
 
     class Program
     {
-        public static void playerMove(int x, int y, Board b)
+        public static void playerMove(int x, int y, Board b, Player p)
         {
-
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             switch (keyInfo.Key)
             {
-                case ConsoleKey.UpArrow:
-                    b.board[x,y].symbol = ".";
-                    x -= 1;
-                    //Finish movement
+                case ConsoleKey.UpArrow:                    
+                    if (b.board[x - 1, y].isPassable)
+                    {
+                        b.board[x, y].playerHere = false;
+                        b.board[x, y].symbol = ".";
+                        x -= 1;
+                        b.board[x, y].playerHere = true;
+                        p.coordX = x;
+                    }                    
                     break;
                 case ConsoleKey.DownArrow:
-                    Console.WriteLine("Down");
+                    if (b.board[x + 1, y].isPassable)
+                    {
+                        b.board[x, y].playerHere = false;
+                        b.board[x, y].symbol = ".";
+                        x += 1;
+                        b.board[x, y].playerHere = true;
+                        p.coordX = x;
+                    }                        
                     break;
                 case ConsoleKey.RightArrow:
-                    Console.WriteLine("Right");
+                    if (b.board[x, y + 1].isPassable)
+                    {
+                        b.board[x, y].playerHere = false;
+                        b.board[x, y].symbol = ".";
+                        y += 1;
+                        b.board[x, y].playerHere = true;
+                        p.coordY = y;
+                    }                        
                     break;
                 case ConsoleKey.LeftArrow:
-                    Console.WriteLine("Left");
+                    if (b.board[x, y - 1].isPassable)
+                    {
+                        b.board[x, y].playerHere = false;
+                        b.board[x, y].symbol = ".";
+                        y -= 1;
+                        b.board[x, y].playerHere = true;
+                        p.coordY = y;
+                    }                        
                     break;
             }
+            Console.Clear();
+            b.showBoard();
+            
 
         }
         static void Main(string[] args)
         {
-
             /*
-            //Creates the player 
             Player player = new Player();
-            Console.ReadKey();
-            Console.Clear();
-            int dieRoll = DieRoller.totalRoll(3, 6);
-            int targetRoll = DieRoller.targetRoll(3, 6, 4);
-            */
+            Board board = new Board(20,20);         
+            board.placePlayer(player.coordX, player.coordY, player);
+            board.showBoard();
 
-            Board b = new Board(20,20);            
-            b.showBoard();
-            Console.ReadKey();
+            //Test loop for player movement.
+            while (true)
+            {
+                playerMove(player.coordX, player.coordY, board, player);                
+            }
+            
+            Console.ReadKey();*/
+            
 
+            
             Console.WriteLine("Choose a character class");
             Console.WriteLine("1. Fighter \n" +
                               "2. Frat \n" +
@@ -70,7 +100,8 @@ namespace Game
             } while (c_class < 1 || c_class > 6);
 
             Player p1 = new Player(c_class);
-
+            
+    
         }
     }
 }

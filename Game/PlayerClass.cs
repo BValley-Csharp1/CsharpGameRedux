@@ -8,6 +8,8 @@ namespace Game
 {
     class Player
     {
+        public int coordY;
+        public int coordX;
         int moxie;
         int aggression;
         int humor;
@@ -40,6 +42,7 @@ namespace Game
                 break;
 
         }
+       
        
     }
 }
