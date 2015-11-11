@@ -55,7 +55,7 @@ namespace Game
                 int barh = 1;
                 int barl = StaticRandom.Instance.Next(5, 15);
                 
-                //Eventually add a roll for 
+                //Eventually add a roll for the different types of bars
                 if (checkBar(barx, bary, barh, barl))
                 {
                     createBar(barx, bary, barh, barl);
@@ -360,7 +360,7 @@ namespace Game
             board[X, Y].originalSymbol = symbol;
 
         }
-        //Will use variation for NPC movement, have yet to modify
+        /*//Will use variation for NPC movement, have yet to modify
         public void createCorridors()
         {
             //Loop that runs for the length of array
@@ -417,7 +417,7 @@ namespace Game
                 }
             }
 
-        }
+        }*/
     }
     }
 
