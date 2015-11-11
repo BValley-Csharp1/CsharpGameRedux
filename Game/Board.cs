@@ -18,9 +18,10 @@ namespace Game
         //List used to connect rooms
         List<int[]> midpoints = new List<int[]>();
 
-        //List for stair creation
-        static string[] stairSymbols = { "#", "@"};
-        List<string> stairs = new List<string>(stairSymbols);
+        //Used for NPC movement
+        List<int[]> barStools = new List<int[]>();
+        List<int[]> poolTable = new List<int[]>();
+        List<int[]> tables = new List<int[]>();
 
         public Board(int x, int y)
         {
@@ -34,42 +35,80 @@ namespace Game
             for (int i = 0; i <= x - 1; i++){
                for (int j = 0; j <= y - 1; j++ ){
                     board[i,j] = new Tile ("#","#",ConsoleColor.Blue, ConsoleColor.Blue);
-                    board[i, j].isPassable = false;     
-               }
+                    board[i, j].isPassable = false;
+                }
              }
             int roomx = 1;
-            int roomh = 16;
+            int roomh = 17;
             int roomy = 1;
-            int rooml = 16;
+            int rooml = 37;
 
             if (checkRoom(roomx, roomy, roomh, rooml))
             {
                 createRoom(roomx, roomy, roomh, rooml);
-
             }
-
-            //All of this will be placed in a loop to make sure it gets placed.
-            int barx = StaticRandom.Instance.Next(1, height -1);
-            int barh = 1;
-            int bary = StaticRandom.Instance.Next(1, height - 1);
-            int barl = StaticRandom.Instance.Next(5,15);
-            if (checkBar(barx, bary, barh, barl))
+            
+            for (int index = 0; index < 1; index++)
             {
-                createBar(barx, bary, barh, barl);
+                int barx = StaticRandom.Instance.Next(1, height - 1);                
+                int bary = StaticRandom.Instance.Next(1, height - 1);
+                int barh = 1;
+                int barl = StaticRandom.Instance.Next(5, 15);
+                
+                //Eventually add a roll for 
+                if (checkBar(barx, bary, barh, barl))
+                {
+                    createBar(barx, bary, barh, barl);
 
+                }              
+                else
+                {
+                    index--;
+                }
             }
-            int tablex = StaticRandom.Instance.Next(1, height - 1);
-            int tabley = StaticRandom.Instance.Next(1, height - 1);
-            if (checkTable(tablex, tabley, 1, 1))
+
+            for (int index = 0; index < 1; index++)
             {
-                createTable(tablex, tabley, 1, 1);
+                int poolx = StaticRandom.Instance.Next(1, height - 1);                
+                int pooly = StaticRandom.Instance.Next(1, height - 1);
+                int poolh = 1;
+                int pooll = 4;
 
+                //Decides if the pool table will be vertical or horizontal
+                int roll = StaticRandom.Instance.Next(1, 6);
+                if (roll < 4)
+                {
+                    int temp = poolh;
+                    poolh = 2;
+                    pooll = 2;
+
+                }
+                //Creates the pool table if coordinates are available.
+                if (checkBar(poolx, pooly, poolh, pooll))
+                {
+                    createPoolTable(poolx, pooly, poolh, pooll);
+
+                }
+                else
+                {
+                    index--;
+                }
             }
 
-            //Testing the placeObject function and saving the ascii blocks for future use.
-            //placeObject("stairs", "▀", stairs, ConsoleColor.Magenta, true);
-            //placeObject("chair", "▄", stairs, ConsoleColor.Green, false);
-            //placeObject("stool", "█", stairs, ConsoleColor.Red, false);
+            //For loop to generate a 4 tables randomly
+            for (int index = 0; index <= 4; index++)
+            {
+                int tablex = StaticRandom.Instance.Next(1, height - 1);
+                int tabley = StaticRandom.Instance.Next(1, height - 1);
+                if (checkTable(tablex, tabley, 1, 1))
+                {
+                    createTable(tablex, tabley, 1, 1);
+                }
+                else
+                {
+                    index--;
+                }
+            }           
         }   
         public bool checkRoom(int x, int y, int h, int l)
         {
@@ -131,6 +170,10 @@ namespace Game
                     {
                         return false;
                     }
+                    if (board[i, j].isOccupied == true)
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -138,30 +181,55 @@ namespace Game
 
         public void createBar(int x, int y, int h, int l)
         {
-            //Sets the midpoint for the bar
-            int mpX = h / 2 + x;
-            int mpY = l / 2 + y;
-
             //Loop for creating a bar in desired area and width and height.
             for (i = x; i < x + h; i++)
             {
                 for (j = y; j < y + l; j++)
                 {
-                    board[i, j].originalColor = ConsoleColor.Green;
+                    //Checks for specific row and places the bar by that and the stools by that.
+                    board[i, j].originalColor = ConsoleColor.Yellow;
                     board[i, j].isPassable = false;
                     board[i, j].originalSymbol = "░";
-                    board[i + 1, j].originalColor = ConsoleColor.Green;
+                    board[i, j].isOccupied = true;
+
+                    board[i + 1, j].originalColor = ConsoleColor.White;
                     board[i + 1, j].isPassable = true;
                     board[i + 1, j].originalSymbol = "o";
+                    board[i + 1, j].isOccupied = true;
+
+                    //Adds bar stools to list for NPC movement
+                    barStools.Add(new int[] { i + 1, j });
                 }
             }
-            midpoints.Add(new int[] { mpX, mpY });
+            
 
         }
+        public void createPoolTable(int x, int y, int h, int l)
+        {
+            //Sets the midpoint for the pool table
+            int mpX = h / 2 + x;
+            int mpY = l / 2 + y;
 
+            //Loop for creating a pool table in desired area and width and height.
+            for (i = x; i < x + h; i++)
+            {
+                for (j = y; j < y + l; j++)
+                {
+                    board[i, j].originalColor = ConsoleColor.DarkGreen;
+                    board[i, j].isPassable = false;
+                    board[i, j].originalSymbol = "█";
+                    board[i, j].isOccupied = true;
+
+                    //Adds table coordinates for NPC movement
+                    poolTable.Add(new int[] { i, j });
+                }
+            }
+            
+
+        }
         public bool checkTable(int x, int y, int h, int l)
         {
-            //Loop starts at x and y coordinate to only loop through potential bar
+            //Loop starts at x and y coordinate to only loop through potential table
             for (i = x; i < x + h; i++)
             {
                 for (j = y; j < y + l; j++)
@@ -181,6 +249,10 @@ namespace Game
                     {
                         return false;
                     }
+                    if (board[i, j].isOccupied == true)
+                    {
+                        return false;
+                    }
                 }
             }
             return true;
@@ -188,29 +260,34 @@ namespace Game
 
         public void createTable(int x, int y, int h, int l)
         {
-            //Sets the midpoint for the bar
+            //Sets the midpoint for the table
             int mpX = h / 2 + x;
             int mpY = l / 2 + y;
 
-            //Loop for creating a bar in desired area and width and height.
+            //Loop for creating a table within the set height and width.
             for (i = x; i < x + h; i++)
             {
                 for (j = y; j < y + l; j++)
                 {
-                    board[i, j].originalColor = ConsoleColor.Green;
+                    board[i, j].originalColor = ConsoleColor.Yellow;
                     board[i, j].isPassable = false;
                     board[i, j].originalSymbol = "░";
-                    board[i, j + 1].originalColor = ConsoleColor.Green;
+
+                    //Creates seats at the table 
+                    board[i, j + 1].originalColor = ConsoleColor.White;
                     board[i, j + 1].isPassable = true;
-                    board[i, j + 1].originalSymbol = "o";
-                    board[i, j - 1].originalColor = ConsoleColor.Green;
+                    board[i, j + 1].originalSymbol = "o";                    
+                    board[i, j - 1].originalColor = ConsoleColor.White;
                     board[i, j - 1].isPassable = true;
                     board[i, j - 1].originalSymbol = "o";
-                }
-            }
-            midpoints.Add(new int[] { mpX, mpY });
 
+                    //Adds seats to the list for NPC movement
+                    tables.Add(new int[] { i, j + 1 });
+                    tables.Add(new int[] { i, j - 1});
+                }
+            }          
         }
+
         //Showboard method
         public void showBoard()
         {
@@ -246,7 +323,7 @@ namespace Game
         playerY = StaticRandom.Instance.Next(0,length - 1);
 
         //While player coordinates are on a wall or stairs loop with new coordinates
-        while (board[playerX, playerY].symbol == "#" || board[playerX, playerY].symbol == ">")
+        while (board[playerX, playerY].symbol == "#" || board[playerX, playerY].isOccupied == true)
         {
             playerX = StaticRandom.Instance.Next(0, height - 1);
             playerY = StaticRandom.Instance.Next(0, length - 1);
@@ -258,28 +335,89 @@ namespace Game
         //Sets player location to player.
         player.coordY = playerY;
         player.coordX = playerX;
+        //if its a person, don't set original symbol. if we want them to move, otherwise it wont matter
 
-        return player;
+            return player;
 
         }
-        public void placeObject(string objectToPlace, string symbol, List<string> cantPlace, ConsoleColor color, bool passable)
+        public void placeObject(string objectToPlace, string symbol, ConsoleColor color, bool passable)
         {         
             //Generates coordinates
             int X = StaticRandom.Instance.Next(0, height - 1);
             int Y = StaticRandom.Instance.Next(0, length - 1);
 
-            //While player coordinates are on a wall or stairs loop with new coordinates
-            while (board[X, Y].symbol == cantPlace[0])
+            //While player coordinates are occupied or a wall, create new coordinates
+            while (board[X, Y].isOccupied == true || board[X,Y].symbol == "#")
             {
                 X = StaticRandom.Instance.Next(0, height - 1);
                 Y = StaticRandom.Instance.Next(0, length - 1);
 
-            }            
+            }
+            //Sets tile properties for object
             board[X, Y].isPassable = passable;
+            board[X, Y].isOccupied = true;
             board[X, Y].originalColor = color;
             board[X, Y].originalSymbol = symbol;
 
-        }       
+        }
+        //Will use variation for move
+        public void createCorridors()
+        {
+            //Loop that runs for the length of array
+            for (int index = 1; index < midpoints.Count; index++)
+            {
+                //Sets the x and y coordinates together in an array
+                int[] m1 = midpoints[index - 1];
+                int[] m2 = midpoints[index];
+
+                //Set coordinates to specific variables
+                int x1 = m1[0];
+                int y1 = m1[1];
+                int x2 = m2[0];
+                int y2 = m2[1];
+
+                //If statement X Coordinate
+                if (x1 > x2)
+                {
+                    //For loop that writes the X axis corridor
+                    for (i = x1; i > x2; i--)
+                    {
+                        board[i, y1].color = ConsoleColor.White;
+                        board[i, y1].symbol = "."; 
+                    }
+                }
+                else if (x1 <= x2)
+                {
+                    for (i = x1; i < x2; i++)
+                    {
+                        board[i, y1].color = ConsoleColor.White;
+                        board[i, y1].symbol = ".";
+                        }
+                    }
+                }
+                //If statement for Y coordinate
+                if (y1 > y2)
+                {
+                    //For loop that creates the Y axis corridor
+                    for (j = y1; j > y2; j--)
+                    {
+                        board[i, j].color = ConsoleColor.White;
+                        board[i, j].symbol = ".";
+                        }
+                    }
+                }
+                else if (y1 <= y2)
+                {
+                    for (j = y1; j < y2; j++)
+                    {
+                        board[i, j].color = ConsoleColor.White;
+                        board[i, j].symbol = ".";
+                        }
+                    }
+                }
+            }
+
+        }
     }
     }
 

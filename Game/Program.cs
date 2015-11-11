@@ -19,7 +19,6 @@ namespace Game
                     if (b.board[x - 1, y].isPassable)
                     {
                         b.board[x, y].playerHere = false;
-                        b.board[x, y].symbol = ".";
                         x -= 1;
                         b.board[x, y].playerHere = true;
                         p.coordX = x;
@@ -29,7 +28,6 @@ namespace Game
                     if (b.board[x + 1, y].isPassable)
                     {
                         b.board[x, y].playerHere = false;
-                        b.board[x, y].symbol = ".";
                         x += 1;
                         b.board[x, y].playerHere = true;
                         p.coordX = x;
@@ -39,7 +37,6 @@ namespace Game
                     if (b.board[x, y + 1].isPassable)
                     {
                         b.board[x, y].playerHere = false;
-                        b.board[x, y].symbol = ".";
                         y += 1;
                         b.board[x, y].playerHere = true;
                         p.coordY = y;
@@ -49,7 +46,6 @@ namespace Game
                     if (b.board[x, y - 1].isPassable)
                     {
                         b.board[x, y].playerHere = false;
-                        b.board[x, y].symbol = ".";
                         y -= 1;
                         b.board[x, y].playerHere = true;
                         p.coordY = y;
@@ -65,7 +61,7 @@ namespace Game
         {
             /*
             Player player = new Player();
-            Board board = new Board(20,20);         
+            Board board = new Board(20,40);         
             board.placePlayer(player.coordX, player.coordY, player);
             board.showBoard();
 
@@ -75,8 +71,8 @@ namespace Game
                 playerMove(player.coordX, player.coordY, board, player);                
             }
             
-            Console.ReadKey();*/
-            
+            Console.ReadKey();
+            */
 
             
             Console.WriteLine("Choose a character class");
