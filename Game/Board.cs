@@ -360,7 +360,7 @@ namespace Game
             board[X, Y].originalSymbol = symbol;
 
         }
-        //Will use variation for move
+        //Will use variation for NPC movement, have yet to modify
         public void createCorridors()
         {
             //Loop that runs for the length of array
@@ -420,4 +420,5 @@ namespace Game
         }
     }
     }
+
 
