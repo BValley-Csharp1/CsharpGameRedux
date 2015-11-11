@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="DieRoller.cs" />
+    <Compile Include="npc.cs" />
     <Compile Include="PlayerClass.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
