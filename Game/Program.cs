@@ -12,7 +12,7 @@ namespace Game
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             switch (keyInfo.Key)
             {
-                case ConsoleKey.UpArrow:                    
+                case ConsoleKey.UpArrow:
                     if (b.board[x - 1, y].isPassable)
                     {
                         b.board[x, y].playerHere = false;
@@ -28,7 +28,7 @@ namespace Game
                         x += 1;
                         b.board[x, y].playerHere = true;
                         p.coordX = x;
-                    }                        
+                    }
                     break;
                 case ConsoleKey.RightArrow:
                     if (b.board[x, y + 1].isPassable)
@@ -37,7 +37,7 @@ namespace Game
                         y += 1;
                         b.board[x, y].playerHere = true;
                         p.coordY = y;
-                    }                        
+                    }
                     break;
                 case ConsoleKey.LeftArrow:
                     if (b.board[x, y - 1].isPassable)
@@ -46,7 +46,7 @@ namespace Game
                         y -= 1;
                         b.board[x, y].playerHere = true;
                         p.coordY = y;
-                    }                        
+                    }
                     break;
             }
             Console.Clear();
