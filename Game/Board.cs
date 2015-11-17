@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
- 
-             
+
+
 namespace Game
 {
     class Board
@@ -34,31 +34,26 @@ namespace Game
             //Nested for loops that creates the 2d array of # as a game board
             for (int i = 0; i <= x - 1; i++){
                for (int j = 0; j <= y - 1; j++ ){
-                    board[i,j] = new Tile ("#","#",ConsoleColor.Blue, ConsoleColor.Blue);
+                    board[i,j] = new Tile ("#",ConsoleColor.Blue, true);
                     board[i, j].isPassable = false;
                 }
              }
-            int roomx = 1;
-            int roomh = 17;
-            int roomy = 1;
-            int rooml = 37;
-
-            if (checkRoom(roomx, roomy, roomh, rooml))
+            
+            if (checkRoom(1, 1, 17, 37))
             {
-                createRoom(roomx, roomy, roomh, rooml);
+                createRoom(1, 1, 17, 37);
             }
             
+            //Loop for creating a bar
             for (int index = 0; index < 1; index++)
             {
                 int barx = StaticRandom.Instance.Next(1, height - 1);                
-                int bary = StaticRandom.Instance.Next(1, height - 1);
-                int barh = 1;
-                int barl = StaticRandom.Instance.Next(5, 15);
+                int bary = StaticRandom.Instance.Next(1, height - 1);                
                 
                 //Eventually add a roll for the different types of bars
-                if (checkBar(barx, bary, barh, barl))
+                if (checkBar(barx, bary, 2, 8))
                 {
-                    createBar(barx, bary, barh, barl);
+                    createBar(barx, bary, 2, 8);
 
                 }              
                 else
@@ -67,20 +62,21 @@ namespace Game
                 }
             }
 
+            //Loop for creating a pool table
             for (int index = 0; index < 1; index++)
             {
                 int poolx = StaticRandom.Instance.Next(1, height - 1);                
                 int pooly = StaticRandom.Instance.Next(1, height - 1);
-                int poolh = 1;
-                int pooll = 4;
+                int poolh = 2;
+                int pooll = 5;
 
                 //Decides if the pool table will be vertical or horizontal
                 int roll = StaticRandom.Instance.Next(1, 6);
                 if (roll < 4)
                 {
                     int temp = poolh;
-                    poolh = 2;
-                    pooll = 2;
+                    poolh = 3;
+                    pooll = 3;
 
                 }
                 //Creates the pool table if coordinates are available.
@@ -100,9 +96,9 @@ namespace Game
             {
                 int tablex = StaticRandom.Instance.Next(1, height - 1);
                 int tabley = StaticRandom.Instance.Next(1, height - 1);
-                if (checkTable(tablex, tabley, 1, 1))
+                if (checkTable(tablex, tabley, 1, 3))
                 {
-                    createTable(tablex, tabley, 1, 1);
+                    createTable(tablex, tabley, 1, 3);
                 }
                 else
                 {
@@ -123,7 +119,7 @@ namespace Game
                         return false;
                     }
                     //Checks if its a wall
-                    if (board[i, j].symbol != "#")
+                    if (board[i, j].originalSymbol != "#")
                     {
                         return false;
                     }
@@ -144,9 +140,9 @@ namespace Game
                 for (j = y; j < y + l; j++)
                 {
                   board[i, j].originalColor = ConsoleColor.Gray;
-                  board[i, j].isPassable = true;
                   board[i, j].originalSymbol = ".";
-                  board[i, j].symbol = ".";
+                  board[i, j].isPassable = true;
+                  board[i, j].isOccupied = false;
                 }
             }
             midpoints.Add(new int[] { mpX, mpY });
@@ -166,7 +162,7 @@ namespace Game
                         return false;
                     }
                     //Checks if its in a room
-                    if (board[i, j].symbol != "." )
+                    if (board[i, j].originalSymbol != "." )
                     {
                         return false;
                     }
@@ -181,47 +177,55 @@ namespace Game
 
         public void createBar(int x, int y, int h, int l)
         {
+            int origX = x;
+
             //Loop for creating a bar in desired area and width and height.
             for (i = x; i < x + h; i++)
             {
                 for (j = y; j < y + l; j++)
                 {
-                    //Checks for specific row and places the bar by that and the stools by that.
-                    board[i, j].originalColor = ConsoleColor.Yellow;
-                    board[i, j].isPassable = false;
-                    board[i, j].originalSymbol = "░";
-                    board[i, j].isOccupied = true;
+                    if (i == origX)
+                    {
+                        //Checks for specific row and places the bar by that and the stools by that.
+                        board[i, j].originalColor = ConsoleColor.Yellow;
+                        board[i, j].isPassable = false;
+                        board[i, j].originalSymbol = "░";
+                        board[i, j].isOccupied = true;
+                    }
+                    else
+                    {
+                        board[i, j].originalColor = ConsoleColor.White;
+                        board[i, j].isPassable = true;
+                        board[i, j].originalSymbol = "o";
+                        board[i, j].isOccupied = true;
 
-                    board[i + 1, j].originalColor = ConsoleColor.White;
-                    board[i + 1, j].isPassable = true;
-                    board[i + 1, j].originalSymbol = "o";
-                    board[i + 1, j].isOccupied = true;
-
-                    //Adds bar stools to list for NPC movement
-                    barStools.Add(new int[] { i + 1, j });
+                        //Adds bar stools to list for NPC movement
+                        barStools.Add(new int[] { i + 1, j });
+                    }                   
                 }
             }
-            
-
         }
         public void createPoolTable(int x, int y, int h, int l)
         {
-            //Sets the midpoint for the pool table
-            int mpX = h / 2 + x;
-            int mpY = l / 2 + y;
+            int origX = x;
+            int origY = y;
 
             //Loop for creating a pool table in desired area and width and height.
             for (i = x; i < x + h; i++)
             {
                 for (j = y; j < y + l; j++)
-                {
-                    board[i, j].originalColor = ConsoleColor.DarkGreen;
-                    board[i, j].isPassable = false;
-                    board[i, j].originalSymbol = "█";
-                    board[i, j].isOccupied = true;
+                {     
+                    if (i > origX && j < l)
+                    {
+                        board[i, j].originalColor = ConsoleColor.DarkGreen;
+                        board[i, j].originalSymbol = "█";
+                        board[i, j].isPassable = false;                        
+                        board[i, j].isOccupied = true;
 
-                    //Adds table coordinates for NPC movement
-                    poolTable.Add(new int[] { i, j });
+                        //Adds table coordinates for NPC movement
+                        poolTable.Add(new int[] { i, j });
+                    }              
+                    
                 }
             }
             
@@ -240,12 +244,12 @@ namespace Game
                         return false;
                     }
                     //Checks if its on a wall
-                    if (board[i, j].symbol == "#")
+                    if (board[i, j].originalSymbol == "#")
                     {
                         return false;
                     }
                     //Checks if its in a room
-                    if (board[i, j].symbol != ".")
+                    if (board[i, j].originalSymbol != ".")
                     {
                         return false;
                     }
@@ -260,6 +264,8 @@ namespace Game
 
         public void createTable(int x, int y, int h, int l)
         {
+            int origY = y;
+
             //Sets the midpoint for the table
             int mpX = h / 2 + x;
             int mpY = l / 2 + y;
@@ -269,21 +275,23 @@ namespace Game
             {
                 for (j = y; j < y + l; j++)
                 {
-                    board[i, j].originalColor = ConsoleColor.Yellow;
-                    board[i, j].isPassable = false;
-                    board[i, j].originalSymbol = "░";
+                    if (j == origY || j == origY + 2)
+                    {
+                        //Creates seats at the table 
+                        board[i, j].originalColor = ConsoleColor.White;
+                        board[i, j].isPassable = true;
+                        board[i, j].originalSymbol = "o";
 
-                    //Creates seats at the table 
-                    board[i, j + 1].originalColor = ConsoleColor.White;
-                    board[i, j + 1].isPassable = true;
-                    board[i, j + 1].originalSymbol = "o";                    
-                    board[i, j - 1].originalColor = ConsoleColor.White;
-                    board[i, j - 1].isPassable = true;
-                    board[i, j - 1].originalSymbol = "o";
-
-                    //Adds seats to the list for NPC movement
-                    tables.Add(new int[] { i, j + 1 });
-                    tables.Add(new int[] { i, j - 1});
+                        //Adds seats to the list for NPC movement
+                        tables.Add(new int[] { i, j });
+                    }
+                    else
+                    {
+                        //Creates the table
+                        board[i, j].originalColor = ConsoleColor.Yellow;
+                        board[i, j].isPassable = false;
+                        board[i, j].originalSymbol = "░";
+                    }                
                 }
             }          
         }
@@ -323,7 +331,7 @@ namespace Game
         playerY = StaticRandom.Instance.Next(0,length - 1);
 
         //While player coordinates are on a wall or stairs loop with new coordinates
-        while (board[playerX, playerY].symbol == "#" || board[playerX, playerY].isOccupied == true)
+        while (board[playerX, playerY].originalSymbol == "#" || board[playerX, playerY].isOccupied == true)
         {
             playerX = StaticRandom.Instance.Next(0, height - 1);
             playerY = StaticRandom.Instance.Next(0, length - 1);
@@ -335,9 +343,8 @@ namespace Game
         //Sets player location to player.
         player.coordY = playerY;
         player.coordX = playerX;
-        //if its a person, don't set original symbol. if we want them to move, otherwise it wont matter
 
-            return player;
+        return player;
 
         }
         public void placeObject(string objectToPlace, string symbol, ConsoleColor color, bool passable)
@@ -347,7 +354,7 @@ namespace Game
             int Y = StaticRandom.Instance.Next(0, length - 1);
 
             //While player coordinates are occupied or a wall, create new coordinates
-            while (board[X, Y].isOccupied == true || board[X,Y].symbol == "#")
+            while (board[X, Y].isOccupied == true || board[X,Y].originalSymbol == "#")
             {
                 X = StaticRandom.Instance.Next(0, height - 1);
                 Y = StaticRandom.Instance.Next(0, length - 1);
@@ -360,6 +367,12 @@ namespace Game
             board[X, Y].originalSymbol = symbol;
 
         }
+        //Te determine the destination as to where the npcs go.
+        //Loop if its null and get a random coordinate, otherwise keep going until then.
+        //board list of random places and set as destination.
+        //destination = null, would do random roll for certain object 
+        //coordinates will be the destination 
+
         /*//Will use variation for NPC movement, have yet to modify
         public void createCorridors()
         {
@@ -419,6 +432,6 @@ namespace Game
 
         }*/
     }
-    }
+}
 
 

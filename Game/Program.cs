@@ -55,23 +55,7 @@ namespace Game
 
         }
         static void Main(string[] args)
-        {
-            /*
-            Player player = new Player();
-            Board board = new Board(20,40);         
-            board.placePlayer(player.coordX, player.coordY, player);
-            board.showBoard();
-
-            //Test loop for player movement.
-            while (true)
-            {
-                playerMove(player.coordX, player.coordY, board, player);                
-            }
-            
-            Console.ReadKey();
-            */
-
-            
+        {                      
             Console.WriteLine("Choose a character class");
             Console.WriteLine("1. Fighter \n" +
                               "2. Frat \n" +
@@ -93,8 +77,21 @@ namespace Game
             } while (c_class < 1 || c_class > 6);
 
             Player p1 = new Player(c_class);
-            
-    
+
+            Console.Clear();
+
+            /*
+            //Creates and displays board
+            Board board = new Board(20, 40);
+            board.placePlayer(p1.coordX, p1.coordY, p1);
+            board.showBoard();
+
+            //Test loop for player movement, will be arranged for main game loop
+            while (true)
+            {
+                playerMove(p1.coordX, p1.coordY, board, p1);
+            }
+            */
         }
     }
 }

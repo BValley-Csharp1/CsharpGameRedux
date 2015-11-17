@@ -24,12 +24,13 @@ namespace Game
         public bool isPassable { get; set; }
         
         //Constructor for tile class
-        public Tile(string s, string os, ConsoleColor oc, ConsoleColor c)
+        public Tile(string os, ConsoleColor oc, bool occp)
         {
-            symbol = s;
+            //symbol = s;
             originalSymbol = os;
-            color = c;
+            //color = c;
             originalColor = oc;
+            isOccupied = occp;
         }
         
     }

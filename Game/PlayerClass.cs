@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Game
 {
     class Player
-    {
+    { 
         public int coordY;
         public int coordX;
         int aggression; // Stats
