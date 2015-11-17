@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="DieRoller.cs" />
+    <Compile Include="FratBoy.cs" />
     <Compile Include="generateNPC.cs" />
     <Compile Include="npc.cs" />
     <Compile Include="PlayerClass.cs" />

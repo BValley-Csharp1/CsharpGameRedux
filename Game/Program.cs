@@ -73,7 +73,7 @@ namespace Game
 
             
             Console.WriteLine("Choose a character class");
-            Console.WriteLine("1. Fighter \n" +
+            Console.WriteLine("1. Scrapper \n" +
                               "2. Frat \n" +
                               "3. Lover \n" +
                               "4. Gentleman \n" +
@@ -98,3 +98,14 @@ namespace Game
         }
     }
 }
+
+/* Beer - basic plus
+ * 
+ * Screwdriver - agg plus
+ * Gin & Tonic - mox plus
+ * Coke & rum - hum plus
+ * 
+ * Whiskey - agg big plus
+ * Wine - mox big plus
+ * Long Island Iced Tea - hum big plus
+*/

@@ -20,7 +20,7 @@ namespace Game
         private void determineClass(int c_class)
         {
             if (c_class == 1)
-            { // Fighter
+            { // Scrapper
                 aggression = 9;
                 moxie = 3;
                 humor = 5;
