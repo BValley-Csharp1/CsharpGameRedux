@@ -10,6 +10,7 @@ namespace Game
         int aggression; // Stats
         int moxie;
         int humor;
+        int bac { get; set; }
         List<int> evidence = new List<int>();
         public Player(int c)
         {
@@ -19,7 +20,7 @@ namespace Game
         private void determineClass(int c_class)
         {
             if (c_class == 1)
-            { // Fighter
+            { // Scrapper
                 aggression = 9;
                 moxie = 3;
                 humor = 5;

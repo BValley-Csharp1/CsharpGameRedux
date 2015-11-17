@@ -12,7 +12,7 @@ namespace Game
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             switch (keyInfo.Key)
             {
-                case ConsoleKey.UpArrow:                    
+                case ConsoleKey.UpArrow:
                     if (b.board[x - 1, y].isPassable)
                     {
                         b.board[x, y].playerHere = false;
@@ -28,7 +28,7 @@ namespace Game
                         x += 1;
                         b.board[x, y].playerHere = true;
                         p.coordX = x;
-                    }                        
+                    }
                     break;
                 case ConsoleKey.RightArrow:
                     if (b.board[x, y + 1].isPassable)
@@ -37,7 +37,7 @@ namespace Game
                         y += 1;
                         b.board[x, y].playerHere = true;
                         p.coordY = y;
-                    }                        
+                    }
                     break;
                 case ConsoleKey.LeftArrow:
                     if (b.board[x, y - 1].isPassable)
@@ -46,7 +46,7 @@ namespace Game
                         y -= 1;
                         b.board[x, y].playerHere = true;
                         p.coordY = y;
-                    }                        
+                    }
                     break;
             }
             Console.Clear();
@@ -57,7 +57,7 @@ namespace Game
         static void Main(string[] args)
         {                      
             Console.WriteLine("Choose a character class");
-            Console.WriteLine("1. Fighter \n" +
+            Console.WriteLine("1. Scrapper \n" +
                               "2. Frat \n" +
                               "3. Lover \n" +
                               "4. Gentleman \n" +
@@ -95,3 +95,14 @@ namespace Game
         }
     }
 }
+
+/* Beer - basic plus
+ * 
+ * Screwdriver - agg plus
+ * Gin & Tonic - mox plus
+ * Coke & rum - hum plus
+ * 
+ * Whiskey - agg big plus
+ * Wine - mox big plus
+ * Long Island Iced Tea - hum big plus
+*/
