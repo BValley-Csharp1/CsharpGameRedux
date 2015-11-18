@@ -80,18 +80,24 @@ namespace Game
 
             Console.Clear();
 
-            /*
+            
+            
             //Creates and displays board
             Board board = new Board(20, 40);
             board.placePlayer(p1.coordX, p1.coordY, p1);
             board.showBoard();
+
+            Console.ReadKey();
 
             //Test loop for player movement, will be arranged for main game loop
             while (true)
             {
                 playerMove(p1.coordX, p1.coordY, board, p1);
             }
-            */
+
+
+
+
         }
     }
 }

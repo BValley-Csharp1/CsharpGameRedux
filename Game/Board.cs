@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+NOTES- Julianna
+1) Finish NPC Movement and place NPCs
+2) Fix the environment creation to ensure a usable randomized board.
+3) Edit Bar creation for different types.
+4) Once it is working correctly, clean code.
+*/
 
 namespace Game
 {
@@ -19,9 +26,8 @@ namespace Game
         List<int[]> midpoints = new List<int[]>();
 
         //Used for NPC movement
-        List<int[]> barStools = new List<int[]>();
-        List<int[]> poolTable = new List<int[]>();
-        List<int[]> tables = new List<int[]>();
+        List<int[]> destinations = new List<int[]>();
+
 
         public Board(int x, int y)
         {
@@ -54,7 +60,6 @@ namespace Game
                 if (checkBar(barx, bary, 2, 8))
                 {
                     createBar(barx, bary, 2, 8);
-
                 }              
                 else
                 {
@@ -83,7 +88,6 @@ namespace Game
                 if (checkBar(poolx, pooly, poolh, pooll))
                 {
                     createPoolTable(poolx, pooly, poolh, pooll);
-
                 }
                 else
                 {
@@ -104,7 +108,9 @@ namespace Game
                 {
                     index--;
                 }
-            }           
+            }
+            //NPC p = new NPC ("Mr. Test NPC");
+            //npcMovement(p);
         }   
         public bool checkRoom(int x, int y, int h, int l)
         {
@@ -200,7 +206,7 @@ namespace Game
                         board[i, j].isOccupied = true;
 
                         //Adds bar stools to list for NPC movement
-                        barStools.Add(new int[] { i + 1, j });
+                        destinations.Add(new int[] { i, j });
                     }                   
                 }
             }
@@ -223,7 +229,7 @@ namespace Game
                         board[i, j].isOccupied = true;
 
                         //Adds table coordinates for NPC movement
-                        poolTable.Add(new int[] { i, j });
+                        destinations.Add(new int[] { i, j });
                     }              
                     
                 }
@@ -283,7 +289,7 @@ namespace Game
                         board[i, j].originalSymbol = "o";
 
                         //Adds seats to the list for NPC movement
-                        tables.Add(new int[] { i, j });
+                        destinations.Add(new int[] { i, j });
                     }
                     else
                     {
@@ -347,6 +353,7 @@ namespace Game
         return player;
 
         }
+        //Subject to be removed, unsure if it is still necessary or useful.
         public void placeObject(string objectToPlace, string symbol, ConsoleColor color, bool passable)
         {         
             //Generates coordinates
@@ -367,27 +374,47 @@ namespace Game
             board[X, Y].originalSymbol = symbol;
 
         }
-        //Te determine the destination as to where the npcs go.
-        //Loop if its null and get a random coordinate, otherwise keep going until then.
-        //board list of random places and set as destination.
-        //destination = null, would do random roll for certain object 
-        //coordinates will be the destination 
 
-        /*//Will use variation for NPC movement, have yet to modify
-        public void createCorridors()
+        /*
+        NPC MOVEMENT LOGIC:
+
+        Destinations List used for coordinates of destinations for NPCS.
+        
+        Use random Coordinate from list as NPC Destination.
+           
+        Head towards the destination. Destination = null when it is reached.
+
+        If destination = null get a new random coordinate. 
+        
+        */
+        public void npcMovement(NPC p)
         {
-            //Loop that runs for the length of array
-            for (int index = 1; index < midpoints.Count; index++)
-            {
-                //Sets the x and y coordinates together in an array
-                int[] m1 = midpoints[index - 1];
-                int[] m2 = midpoints[index];
+            //Random numbers to be used in indexing the destinations array
+            int randomX = StaticRandom.Instance.Next(1, destinations.Count - 1);
+            int randomY = StaticRandom.Instance.Next(1, destinations.Count - 1);
 
+            //Loop that runs for the length of array
+            //(Will only be ran once to get a path from one to another)
+            for (int index = 1; index < destinations.Count; index++)
+             {
+
+            //Sets the x and y coordinates together in an array, use same format to grab random destination
+            int[] m1 = destinations[index - 1];
+            int[] m2 = destinations[index];
+
+                //Set coordinates to specific variables
+                //Testing just getting a single path and not multiple as it did previously
+                int x1 = m1[0];
+                int y1 = m1[1];
+                int x2 = p.destination[0];
+                int y2 = p.destination[1];
+
+                /*
                 //Set coordinates to specific variables
                 int x1 = m1[0];
                 int y1 = m1[1];
                 int x2 = m2[0];
-                int y2 = m2[1];
+                int y2 = m2[1];*/
 
                 //If statement X Coordinate
                 if (x1 > x2)
@@ -396,7 +423,10 @@ namespace Game
                     for (i = x1; i > x2; i--)
                     {
                         board[i, y1].color = ConsoleColor.White;
-                        board[i, y1].symbol = "."; 
+                        board[i, y1].originalSymbol = "&";
+
+                        showBoard();
+                        Console.ReadKey();
                     }
                 }
                 else if (x1 <= x2)
@@ -404,10 +434,10 @@ namespace Game
                     for (i = x1; i < x2; i++)
                     {
                         board[i, y1].color = ConsoleColor.White;
-                        board[i, y1].symbol = ".";
+                        board[i, y1].originalSymbol = "&";
                         }
                     }
-                }
+                
                 //If statement for Y coordinate
                 if (y1 > y2)
                 {
@@ -415,23 +445,24 @@ namespace Game
                     for (j = y1; j > y2; j--)
                     {
                         board[i, j].color = ConsoleColor.White;
-                        board[i, j].symbol = ".";
+                        board[i, j].originalSymbol = "&";
                         }
                     }
-                }
+                
                 else if (y1 <= y2)
                 {
                     for (j = y1; j < y2; j++)
                     {
                         board[i, j].color = ConsoleColor.White;
-                        board[i, j].symbol = ".";
+                        board[i, j].originalSymbol = "&";
                         }
                     }
-                }
+                
             }
-
-        }*/
+            
+            }
+        }
     }
-}
+
 
 

@@ -5,8 +5,10 @@ namespace Game
 {
     class Player
     { 
+        //Used for tracking player location
         public int coordY;
         public int coordX;
+
         int aggression; // Stats
         int moxie;
         int humor;

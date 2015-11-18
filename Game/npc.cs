@@ -8,6 +8,9 @@ namespace Game
 {
     public class NPC
     {
+        //Used for NPC Movement (LOUIS: Feel free to move wherever you find neccesary, I'm just testing. )
+        public int[] destination = new int[2];
+
         string name;
         int aggression, moxie, humor;
         /* TODO
