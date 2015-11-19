@@ -77,7 +77,7 @@ namespace Game
             } while (c_class < 1 || c_class > 6);
 
             Player p1 = new Player(c_class);
-
+            
             Console.Clear();
 
             
@@ -86,8 +86,25 @@ namespace Game
             Board board = new Board(20, 40);
             board.placePlayer(p1.coordX, p1.coordY, p1);
             board.showBoard();
+            int d;
+            Console.WriteLine("Choose a drink:");
+            Console.WriteLine("1. Beer \n" +
+                              "2. RumCoke \n" +
+                              "3. Screwdriver \n" +
+                              "4. Whine \n" +
+                              "5. Whiskey \n" +
+                               "6. Gin Tonic \n" +
+                              "7. Long Island Tea \n" +
+                              "Press Esc to exit.");
+            if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+            {
+                Environment.Exit(0);
+            }
+            number = Console.ReadKey().KeyChar.ToString();
+            try { d = int.Parse(number); }
+            catch (FormatException e) { d = 0; }
 
-            Console.ReadKey();
+            p1.chooseDrink(d);
 
             //Test loop for player movement, will be arranged for main game loop
             while (true)
@@ -95,8 +112,8 @@ namespace Game
                 playerMove(p1.coordX, p1.coordY, board, p1);
             }
 
-
-
+            
+           
 
         }
     }
