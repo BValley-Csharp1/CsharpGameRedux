@@ -12,7 +12,9 @@ namespace Game
         public int aggression; // Stats
         public int moxie;
         public int humor;
-        int bac { get; set; }
+        public int[] mods = new int[3];
+
+        public int bac { get; set; }
         List<int> evidence = new List<int>();
         public Player(int c)
         {
