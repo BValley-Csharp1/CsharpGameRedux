@@ -321,7 +321,7 @@ namespace Game
                         Console.Write(board[i, j].originalSymbol);
                     }                                       
                 }
-                
+                Console.WriteLine("");
             }     
 
        }   
