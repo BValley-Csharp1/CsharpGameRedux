@@ -14,6 +14,7 @@ namespace Game
             characters.Add(new NPC("Steve"));
             characters.Add(new NPC("Joe"));
             characters.Add(new NPC("Sarah"));
+            //12
 
         }
 

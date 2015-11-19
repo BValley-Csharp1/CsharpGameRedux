@@ -95,9 +95,9 @@ namespace Game
             Console.WriteLine("1. Beer \n" +
                               "2. RumCoke \n" +
                               "3. Screwdriver \n" +
-                              "4. Whine \n" +
+                              "4. Wine \n" +
                               "5. Whiskey \n" +
-                               "6. Gin Tonic \n" +
+                              "6. Gin Tonic \n" +
                               "7. Long Island Tea \n" +
                               "Press Esc to exit.");
             if (Console.ReadKey(true).Key == ConsoleKey.Escape)
