@@ -40,12 +40,12 @@ namespace Game
             humor = (humor + 1);
             Humor = humor;
         }
-        public void screwdriver(int aggression)
+        public void screwdriver(int[] stats)
         {
-            aggression = (aggression + 1);
+            aggression = (stats[0] + (1));
             Aggression = aggression;
         }
-        public void whine(int moxie)
+        public void wine(int moxie)
         {
             moxie = (moxie + 1);
             Moxie = moxie;
