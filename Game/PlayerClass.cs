@@ -58,8 +58,27 @@ namespace Game
                 humor = 9;
             }
         }
-        public void chooseDrink(int d)
+        public void chooseDrink()
         {
+            int d;
+            string number;
+            Console.WriteLine("Choose a drink:");
+            Console.WriteLine("1. Beer \n" +
+                              "2. RumCoke \n" +
+                              "3. Screwdriver \n" +
+                              "4. Wine \n" +
+                              "5. Whiskey \n" +
+                               "6. Gin Tonic \n" +
+                              "7. Long Island Tea \n" +
+                              "Press Esc to exit.");
+            if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+            {
+                Environment.Exit(0);
+            }
+            number = Console.ReadKey().KeyChar.ToString();
+            try { d = int.Parse(number); }
+            catch (FormatException e) { d = 0; }
+
 
             Drinks drink = new Drinks(aggression, moxie, humor);
             if (d == 1)
@@ -91,7 +110,7 @@ namespace Game
             }
             if (d == 4)
             {
-                drink.whine(moxie);
+                drink.wine(moxie);
                 moxie = drink.Moxie;
                 Console.WriteLine("Aggression:" + aggression);
                 Console.WriteLine("Moxie:" + moxie);
@@ -121,6 +140,7 @@ namespace Game
                 Console.WriteLine("Moxie:" + moxie);
                 Console.WriteLine("Humor:" + humor);
             }
+            Console.ReadKey();
         }
     }
 }

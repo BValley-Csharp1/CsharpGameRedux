@@ -45,7 +45,7 @@ namespace Game
             aggression = (aggression + 1);
             Aggression = aggression;
         }
-        public void whine(int moxie)
+        public void wine(int moxie)
         {
             moxie = (moxie + 1);
             Moxie = moxie;
