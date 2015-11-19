@@ -9,6 +9,10 @@ namespace Game
     {
         public static void playerMove(int x, int y, Board b, Player p)
         {
+            //Each step is going to walk off drunkeness
+            //Time over = 1000 steps is time over
+            //50 for drink possession
+            //decrease 1 sober level every 100 steps
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             switch (keyInfo.Key)
             {
@@ -78,14 +82,14 @@ namespace Game
 
             Player p1 = new Player(c_class);
             
-            Console.Clear();
-
-            
+            Console.Clear();            
             
             //Creates and displays board
             Board board = new Board(20, 40);
             board.placePlayer(p1.coordX, p1.coordY, p1);
             board.showBoard();
+
+            
             int d;
             Console.WriteLine("Choose a drink:");
             Console.WriteLine("1. Beer \n" +
@@ -104,17 +108,14 @@ namespace Game
             try { d = int.Parse(number); }
             catch (FormatException e) { d = 0; }
 
-            p1.chooseDrink(d);
+            p1.chooseDrink(d);   
+
 
             //Test loop for player movement, will be arranged for main game loop
             while (true)
             {
                 playerMove(p1.coordX, p1.coordY, board, p1);
-            }
-
-            
-           
-
+            }          
         }
     }
 }

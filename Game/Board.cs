@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 /*
 NOTES- Julianna
-1) Finish NPC Movement and place NPCs
-2) Fix the environment creation to ensure a usable randomized board.
+1) Fix the environment creation to ensure it works properly (Decrease amount of code.)
+2) Finish NPC Movement and place NPCs
 3) Edit Bar creation for different types.
 4) Once it is working correctly, clean code.
+5) Certain drunk level allows you to get on the table and behidn the bar
 */
 
 namespace Game
@@ -76,14 +77,14 @@ namespace Game
                 int pooll = 5;
 
                 //Decides if the pool table will be vertical or horizontal
-                int roll = StaticRandom.Instance.Next(1, 6);
+                /*int roll = StaticRandom.Instance.Next(1, 6);
                 if (roll < 4)
                 {
                     int temp = poolh;
                     poolh = 3;
                     pooll = 3;
 
-                }
+                }*/
                 //Creates the pool table if coordinates are available.
                 if (checkBar(poolx, pooly, poolh, pooll))
                 {
@@ -233,8 +234,7 @@ namespace Game
                     }              
                     
                 }
-            }
-            
+            }           
 
         }
         public bool checkTable(int x, int y, int h, int l)
@@ -249,16 +249,14 @@ namespace Game
                     {
                         return false;
                     }
-                    //Checks if its on a wall
-                    if (board[i, j].originalSymbol == "#")
-                    {
-                        return false;
-                    }
+                   
                     //Checks if its in a room
                     if (board[i, j].originalSymbol != ".")
                     {
                         return false;
                     }
+
+                    //Checks if it's occupied
                     if (board[i, j].isOccupied == true)
                     {
                         return false;
@@ -271,10 +269,6 @@ namespace Game
         public void createTable(int x, int y, int h, int l)
         {
             int origY = y;
-
-            //Sets the midpoint for the table
-            int mpX = h / 2 + x;
-            int mpY = l / 2 + y;
 
             //Loop for creating a table within the set height and width.
             for (i = x; i < x + h; i++)
