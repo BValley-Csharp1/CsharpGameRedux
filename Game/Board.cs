@@ -12,6 +12,10 @@ NOTES- Julianna
 4) Once it is working correctly, clean code.
 5) Certain drunk level allows you to get on the table and behidn the bar
 */
+//Each step is going to walk off drunkeness
+//Time over = 1000 steps is time over
+//50 for drink possession
+//decrease 1 sober level every 100 steps
 
 namespace Game
 {
