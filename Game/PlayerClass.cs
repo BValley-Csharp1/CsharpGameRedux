@@ -107,14 +107,14 @@ namespace Game
                 Console.WriteLine("Moxie:" + moxie);
                 Console.WriteLine("Humor:" + humor);
             }
-           /* if (d == 3)
+            if (d == 3)
             {
                 drink.screwdriver(aggression);
                 aggression = drink.Aggression;
                 Console.WriteLine("Aggression:" + aggression);
                 Console.WriteLine("Moxie:" + moxie);
                 Console.WriteLine("Humor:" + humor);
-            }*/
+            }
             if (d == 4)
             {
                 drink.wine(moxie);
