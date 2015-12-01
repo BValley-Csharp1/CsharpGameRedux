@@ -30,12 +30,12 @@ namespace Game
         public void talk()
         {
             Console.Write("HI!");
-            Console.WriteLine("1. Scrapper \n" +
+        /*    Console.WriteLine("1. Scrapper \n" +
                               "2. Frat \n" +
                               "3. Lover \n" +
                               "4. Gentleman \n" +
                               "5. Joker \n" +
-                              "6. Klutz");
+                              "6. Klutz");*/
         }
         public bool aggressionTest(int a)
         {

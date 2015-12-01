@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Game
 {
-    class FratBoy : NPC
+    class GentlemanNPC:NPC
     {
-
-        public FratBoy(string name, int a, int m, int h)
+        public GentlemanNPC(string name, int a=5, int m=9, int h=3)
             : base(name, a, m, h)
         {
             
