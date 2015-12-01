@@ -4,15 +4,19 @@ using System.Text;
 
 namespace Game
 {
-
+    
     class Program
     {
-        public static void playerMove(int x, int y, Board b, Player p)
+        public static void playerMove(int x, int y, Board b, Player p, int bac, int steps)
         {
-            //Each step is going to walk off drunkeness
-            //Time over = 1000 steps is time over
+            
+            //If statement to decrease BAC a level every 100 steps.
+            if (p.stepsTaken == 100)
+            {
+                p.stepsTaken = 0;
+                p.bac -= 1;
+            }
             //50 for drink possession
-            //decrease 1 sober level every 100 steps
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             switch (keyInfo.Key)
             {
@@ -23,6 +27,7 @@ namespace Game
                         x -= 1;
                         b.board[x, y].playerHere = true;
                         p.coordX = x;
+                        p.stepsTaken++;
                     }                    
                     break;
                 case ConsoleKey.DownArrow:
@@ -32,6 +37,7 @@ namespace Game
                         x += 1;
                         b.board[x, y].playerHere = true;
                         p.coordX = x;
+                        p.stepsTaken++;
                     }
                     break;
                 case ConsoleKey.RightArrow:
@@ -41,6 +47,7 @@ namespace Game
                         y += 1;
                         b.board[x, y].playerHere = true;
                         p.coordY = y;
+                        p.stepsTaken++;
                     }
                     break;
                 case ConsoleKey.LeftArrow:
@@ -50,16 +57,17 @@ namespace Game
                         y -= 1;
                         b.board[x, y].playerHere = true;
                         p.coordY = y;
+                        p.stepsTaken++;
                     }
                     break;
             }
-            Console.Clear();
-            b.showBoard();
+            
             
 
         }
         static void Main(string[] args)
-        {                      
+        {     
+                                   
             Console.WriteLine("Choose a character class");
             Console.WriteLine("1. Scrapper \n" +
                               "2. Frat \n" +
@@ -79,7 +87,7 @@ namespace Game
                 catch (FormatException e) { c_class = 0; }
 
             } while (c_class < 1 || c_class > 6);
-
+            
             Player p1 = new Player(c_class);
             
             Console.Clear();            
@@ -89,7 +97,7 @@ namespace Game
             board.placePlayer(p1.coordX, p1.coordY, p1);
             board.showBoard();
 
-            
+           /*
             int d;
             Console.WriteLine("Choose a drink:");
             Console.WriteLine("1. Beer \n" +
@@ -108,13 +116,32 @@ namespace Game
             try { d = int.Parse(number); }
             catch (FormatException e) { d = 0; }
 
-            p1.chooseDrink(d);   
+            //p1.chooseDrink(d);   
+            */
 
-
+            int gameoverCount =0;
             //Test loop for player movement, will be arranged for main game loop
-            while (true)
+            while (gameoverCount != 1000)
             {
-                playerMove(p1.coordX, p1.coordY, board, p1);
+                
+                gameoverCount++;
+                playerMove(p1.coordX, p1.coordY, board, p1, p1.bac, p1.stepsTaken);
+                
+                if (gameoverCount == 1000)
+                {
+                    //Create an intro and end game function.
+                    Console.Clear();
+                    Console.WriteLine("You've run out of time!");
+                    Console.ReadKey();
+                    break;
+                }
+                if (board.board[p1.coordX, p1.coordY].isBar)
+                {
+                    p1.chooseDrink();
+
+                }
+                Console.Clear();
+                board.showBoard();
             }          
         }
     }

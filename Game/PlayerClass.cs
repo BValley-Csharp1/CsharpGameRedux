@@ -9,12 +9,16 @@ namespace Game
         public int coordY;
         public int coordX;
 
+        //Used for resetting player bac level
+        public int stepsTaken;
+
         public int aggression; // Stats
         public int moxie;
         public int humor;
         public int[] mods = new int[3];
 
         public int bac { get; set; }
+
         List<int> evidence = new List<int>();
         public Player(int c)
         {
@@ -60,6 +64,7 @@ namespace Game
                 humor = 9;
             }
         }
+        
         public void chooseDrink()
         {
             int d;
@@ -102,14 +107,14 @@ namespace Game
                 Console.WriteLine("Moxie:" + moxie);
                 Console.WriteLine("Humor:" + humor);
             }
-            if (d == 3)
+           /* if (d == 3)
             {
                 drink.screwdriver(aggression);
                 aggression = drink.Aggression;
                 Console.WriteLine("Aggression:" + aggression);
                 Console.WriteLine("Moxie:" + moxie);
                 Console.WriteLine("Humor:" + humor);
-            }
+            }*/
             if (d == 4)
             {
                 drink.wine(moxie);
@@ -143,6 +148,7 @@ namespace Game
                 Console.WriteLine("Humor:" + humor);
             }
             Console.ReadKey();
+            Console.Clear();
         }
     }
 }

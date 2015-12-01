@@ -22,7 +22,10 @@ namespace Game
 
         //Checks to see if player can move past the tile
         public bool isPassable { get; set; }
-        
+
+        //Used for ordering drinks
+        public bool isBar { get; set; }
+
         //Constructor for tile class
         public Tile(string os, ConsoleColor oc, bool occp)
         {

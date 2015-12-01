@@ -12,10 +12,6 @@ NOTES- Julianna
 4) Once it is working correctly, clean code.
 5) Certain drunk level allows you to get on the table and behidn the bar
 */
-//Each step is going to walk off drunkeness
-//Time over = 1000 steps is time over
-//50 for drink possession
-//decrease 1 sober level every 100 steps
 
 namespace Game
 {
@@ -50,27 +46,18 @@ namespace Game
                 }
              }
             
+            //Creates the room and sets the bar
             if (checkRoom(1, 1, 17, 37))
             {
                 createRoom(1, 1, 17, 37);
             }
-            
-            //Loop for creating a bar
-            for (int index = 0; index < 1; index++)
+
+            //Eventually add a roll for the different types of bars
+            if (checkBar(2, 3, 2, 8))
             {
-                int barx = StaticRandom.Instance.Next(1, height - 1);                
-                int bary = StaticRandom.Instance.Next(1, height - 1);                
-                
-                //Eventually add a roll for the different types of bars
-                if (checkBar(barx, bary, 2, 8))
-                {
-                    createBar(barx, bary, 2, 8);
-                }              
-                else
-                {
-                    index--;
-                }
+                createBar(2, 3, 2, 8);
             }
+
 
             //Loop for creating a pool table
             for (int index = 0; index < 1; index++)
@@ -78,17 +65,17 @@ namespace Game
                 int poolx = StaticRandom.Instance.Next(1, height - 1);                
                 int pooly = StaticRandom.Instance.Next(1, height - 1);
                 int poolh = 2;
-                int pooll = 5;
+                int pooll = 7;
 
                 //Decides if the pool table will be vertical or horizontal
-                /*int roll = StaticRandom.Instance.Next(1, 6);
+                int roll = StaticRandom.Instance.Next(1, 6);
                 if (roll < 4)
                 {
                     int temp = poolh;
                     poolh = 3;
                     pooll = 3;
 
-                }*/
+                }
                 //Creates the pool table if coordinates are available.
                 if (checkBar(poolx, pooly, poolh, pooll))
                 {
@@ -103,8 +90,8 @@ namespace Game
             //For loop to generate a 4 tables randomly
             for (int index = 0; index <= 4; index++)
             {
-                int tablex = StaticRandom.Instance.Next(1, height - 1);
-                int tabley = StaticRandom.Instance.Next(1, height - 1);
+                int tablex = StaticRandom.Instance.Next(3, height - 1);
+                int tabley = StaticRandom.Instance.Next(3, height - 1);
                 if (checkTable(tablex, tabley, 1, 3))
                 {
                     createTable(tablex, tabley, 1, 3);
@@ -202,6 +189,7 @@ namespace Game
                         board[i, j].isPassable = false;
                         board[i, j].originalSymbol = "░";
                         board[i, j].isOccupied = true;
+                        board[i, j].isBar = true;
                     }
                     else
                     {
@@ -209,6 +197,7 @@ namespace Game
                         board[i, j].isPassable = true;
                         board[i, j].originalSymbol = "o";
                         board[i, j].isOccupied = true;
+                        board[i, j].isBar = true;
 
                         //Adds bar stools to list for NPC movement
                         destinations.Add(new int[] { i, j });
@@ -235,8 +224,7 @@ namespace Game
 
                         //Adds table coordinates for NPC movement
                         destinations.Add(new int[] { i, j });
-                    }              
-                    
+                    }             
                 }
             }           
 
