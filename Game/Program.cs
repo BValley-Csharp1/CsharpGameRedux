@@ -129,7 +129,7 @@ namespace Game
                 
                 if (gameoverCount == 1000)
                 {
-                    //Create an intro and end game function.
+                    //Create an intro and end game function(Writelines, ect are just placeholders.)
                     Console.Clear();
                     Console.WriteLine("You've run out of time!");
                     Console.ReadKey();
