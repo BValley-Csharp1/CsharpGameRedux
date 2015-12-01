@@ -13,5 +13,13 @@ namespace Game
         {
             
         }
+        public void talk()
+        {
+            List<string> phrases = new List<string>();
+            phrases.Add("Breh, wat cha want");
+            phrases.Add("Breh, wanna help me with this keg?");
+            phrases.Add("Breh, check out my bedsh- I mean toga");
+
+        }
     }
 }

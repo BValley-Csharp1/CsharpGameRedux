@@ -13,5 +13,10 @@ namespace Game
         {
             
         }
+        public void talk()
+        {
+            List<string> phrases = new List<string>();
+            phrases.Add("Hey. Heard you talkin' shit"); // Might need to remove profanity
+        }
     }
 }
