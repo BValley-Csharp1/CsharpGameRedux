@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Game
 {
-    class ScrapperNPC:NPC
+    class ScrapperNPC : NPC
     {
-        public ScrapperNPC(string name, int a=9, int m=3, int h=5)
+        public ScrapperNPC(string name, int a = 9, int m = 3, int h = 5)
             : base(name, a, m, h)
         {
-            
+
         }
         public override void talk()
         {

@@ -5,10 +5,10 @@ namespace Game
 {
     class FratNPC : NPC
     {
-        public FratNPC(string name, int a=9, int m=5, int h=3)
+        public FratNPC(string name, int a = 9, int m = 5, int h = 3)
             : base(name, a, m, h)
         {
-            
+
         }
         public override void talk()
         {

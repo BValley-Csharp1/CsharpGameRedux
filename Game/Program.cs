@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Game
 {
-    
+
     class Program
     {
         public static void playerMove(int x, int y, Board b, Player p, int bac, int steps)
         {
-            
+
             //If statement to decrease BAC a level every 100 steps.
             if (p.stepsTaken == 100)
             {
@@ -28,7 +28,7 @@ namespace Game
                         b.board[x, y].playerHere = true;
                         p.coordX = x;
                         p.stepsTaken++;
-                    }                    
+                    }
                     break;
                 case ConsoleKey.DownArrow:
                     if (b.board[x + 1, y].isPassable)
@@ -61,13 +61,13 @@ namespace Game
                     }
                     break;
             }
-            
-            
+
+
 
         }
         static void Main(string[] args)
-        {     
-                                   
+        {
+
             Console.WriteLine("Choose a character class");
             Console.WriteLine("1. Scrapper \n" +
                               "2. Frat \n" +
@@ -87,46 +87,46 @@ namespace Game
                 catch (FormatException e) { c_class = 0; }
 
             } while (c_class < 1 || c_class > 6);
-            
+
             Player p1 = new Player(c_class);
-            
-            Console.Clear();            
-            
+
+            Console.Clear();
+
             //Creates and displays board
             Board board = new Board(20, 40);
             board.placePlayer(p1.coordX, p1.coordY, p1);
             board.showBoard();
 
-           /*
-            int d;
-            Console.WriteLine("Choose a drink:");
-            Console.WriteLine("1. Beer \n" +
-                              "2. RumCoke \n" +
-                              "3. Screwdriver \n" +
-                              "4. Wine \n" +
-                              "5. Whiskey \n" +
-                              "6. Gin Tonic \n" +
-                              "7. Long Island Tea \n" +
-                              "Press Esc to exit.");
-            if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-            {
-                Environment.Exit(0);
-            }
-            number = Console.ReadKey().KeyChar.ToString();
-            try { d = int.Parse(number); }
-            catch (FormatException e) { d = 0; }
+            /*
+             int d;
+             Console.WriteLine("Choose a drink:");
+             Console.WriteLine("1. Beer \n" +
+                               "2. RumCoke \n" +
+                               "3. Screwdriver \n" +
+                               "4. Wine \n" +
+                               "5. Whiskey \n" +
+                               "6. Gin Tonic \n" +
+                               "7. Long Island Tea \n" +
+                               "Press Esc to exit.");
+             if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+             {
+                 Environment.Exit(0);
+             }
+             number = Console.ReadKey().KeyChar.ToString();
+             try { d = int.Parse(number); }
+             catch (FormatException e) { d = 0; }
 
-            //p1.chooseDrink(d);   
-            */
+             //p1.chooseDrink(d);   
+             */
 
-            int gameoverCount =0;
+            int gameoverCount = 0;
             //Test loop for player movement, will be arranged for main game loop
             while (gameoverCount != 1000)
             {
-                
+
                 gameoverCount++;
                 playerMove(p1.coordX, p1.coordY, board, p1, p1.bac, p1.stepsTaken);
-                
+
                 if (gameoverCount == 1000)
                 {
                     //Create an intro and end game function(Writelines, ect are just placeholders.)
@@ -142,7 +142,7 @@ namespace Game
                 }
                 Console.Clear();
                 board.showBoard();
-            }          
+            }
         }
     }
 }

@@ -10,7 +10,8 @@ namespace Game
     {
         List<NPC> characters = new List<NPC>();
 
-        public generateNPC(){
+        public generateNPC()
+        {
             //male
             characters.Add(new ScrapperNPC("Butch"));
             characters.Add(new FratNPC("Broseph"));
@@ -26,7 +27,7 @@ namespace Game
             characters.Add(new LoverNPC("Sasha"));
             characters.Add(new KlutzNPC("Rebecca"));
             characters.Add(new JokerNPC("Tina"));
-            
+
 
         }
 
