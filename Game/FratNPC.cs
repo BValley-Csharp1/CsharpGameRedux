@@ -19,7 +19,7 @@ namespace Game
             phrases.Add("Breh, wat cha want");
             phrases.Add("Breh, wanna help me with this keg?");
             phrases.Add("Breh, check out my bedsh- I mean toga");
-
+            Console.Write(phrases[StaticRandom.Instance.Next(1, phrases.Count - 1)]);
         }
     }
 }
