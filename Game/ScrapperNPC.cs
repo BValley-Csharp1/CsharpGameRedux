@@ -13,7 +13,7 @@ namespace Game
         public override void talk()
         {
             List<string> phrases = new List<string>();
-            phrases.Add("Hey. Heard you talkin' shit"); // Might need to remove profanity
+            phrases.Add("Hey. Heard you talkin' @#$%");
             Console.Write(phrases[StaticRandom.Instance.Next(1, phrases.Count - 1)]);
 
         }
