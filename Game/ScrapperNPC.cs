@@ -13,10 +13,12 @@ namespace Game
         {
             
         }
-        public void talk()
+        public override void talk()
         {
             List<string> phrases = new List<string>();
             phrases.Add("Hey. Heard you talkin' shit"); // Might need to remove profanity
+            Console.Write(phrases[StaticRandom.Instance.Next(1, phrases.Count - 1)]);
+
         }
     }
 }

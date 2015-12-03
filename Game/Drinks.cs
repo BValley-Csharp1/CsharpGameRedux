@@ -40,9 +40,9 @@ namespace Game
             humor = (humor + 1);
             Humor = humor;
         }
-        public void screwdriver(int[] stats)
+        public void screwdriver(int aggression)
         {
-            aggression = (stats[0] + (1));
+            aggression = (aggression + 1);
             Aggression = aggression;
         }
         public void wine(int moxie)
@@ -65,5 +65,6 @@ namespace Game
             humor = humor + 2;
             Humor = humor;
         }
+
     }
 }

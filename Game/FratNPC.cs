@@ -13,7 +13,7 @@ namespace Game
         {
             
         }
-        public void talk()
+        public override void talk()
         {
             List<string> phrases = new List<string>();
             phrases.Add("Breh, wat cha want");

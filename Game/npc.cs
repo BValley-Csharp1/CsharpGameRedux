@@ -20,7 +20,7 @@ namespace Game
             moxie = m;
             humor = h;
         }
-        public void talk()
+        public virtual void talk()
         {
             Console.Write("HI!");
         }
