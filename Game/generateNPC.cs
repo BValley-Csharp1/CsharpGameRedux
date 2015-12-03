@@ -22,5 +22,6 @@ namespace Game
         {
             return characters[StaticRandom.Instance.Next(1, characters.Count - 1)];
         }
+       
     }
 }

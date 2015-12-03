@@ -17,6 +17,9 @@ namespace Game
         //Used to keep track of player's location on the board
         public bool playerHere { get; set; }
 
+        //Used to keep track of player's location on the board
+        public bool npcHere { get; set; }
+
         //Used for setting elements within the bar
         public bool isOccupied { get; set; }
 

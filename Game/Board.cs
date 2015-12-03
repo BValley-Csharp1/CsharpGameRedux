@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Media;
 
 /*
 NOTES- Julianna
@@ -23,12 +22,17 @@ namespace Game
         int i;
         int j;
 
+        public List<NPC> npcs = new List<NPC> { new NPC("Name"),
+                                            new NPC("Name"),
+                                            new NPC("Name"),
+                                            new NPC("Name"),
+                                            new NPC("Name"),
+                                            new NPC("Name"),
+                                            new NPC("Name"),
+                                            new NPC("Name"),                                            
+                                                            };
         //List used to connect rooms
         List<int[]> midpoints = new List<int[]>();
-
-        //Used for NPC movement
-        List<int[]> destinations = new List<int[]>();
-
 
         public Board(int x, int y)
         {
@@ -58,24 +62,14 @@ namespace Game
                 createBar(2, 3, 2, 8);
             }
 
-
             //Loop for creating a pool table
             for (int index = 0; index < 1; index++)
             {
-                int poolx = StaticRandom.Instance.Next(1, height - 1);                
-                int pooly = StaticRandom.Instance.Next(1, height - 1);
+                int poolx = StaticRandom.Instance.Next(1, height - 3);                
+                int pooly = StaticRandom.Instance.Next(1, length - 3);
                 int poolh = 2;
-                int pooll = 7;
+                int pooll = 3;
 
-                //Decides if the pool table will be vertical or horizontal
-                int roll = StaticRandom.Instance.Next(1, 6);
-                if (roll < 4)
-                {
-                    int temp = poolh;
-                    poolh = 3;
-                    pooll = 3;
-
-                }
                 //Creates the pool table if coordinates are available.
                 if (checkBar(poolx, pooly, poolh, pooll))
                 {
@@ -87,7 +81,7 @@ namespace Game
                 }
             }
 
-            //For loop to generate a 4 tables randomly
+            //For loop to generate 4 tables randomly
             for (int index = 0; index <= 4; index++)
             {
                 int tablex = StaticRandom.Instance.Next(3, height - 1);
@@ -101,8 +95,19 @@ namespace Game
                     index--;
                 }
             }
-            //NPC p = new NPC ("Mr. Test NPC");
-            //npcMovement(p);
+            
+            for (int i = 0; i < npcs.Count; i++)
+            {
+                npcs[i].coordX = StaticRandom.Instance.Next(3, 17);
+                npcs[i].coordY = StaticRandom.Instance.Next(3, 17);
+                board[npcs[i].coordX, npcs[i].coordY].npcHere = true;
+                npcs[i].destinationX = StaticRandom.Instance.Next(1, length-2);
+                npcs[i].destinationY = StaticRandom.Instance.Next(1, length -2);
+                npcs[i].destination = true;
+            }
+
+            //createIsland(11, 11, 3, 7);
+
         }   
         public bool checkRoom(int x, int y, int h, int l)
         {
@@ -172,7 +177,6 @@ namespace Game
             }
             return true;
         }
-
         public void createBar(int x, int y, int h, int l)
         {
             int origX = x;
@@ -197,10 +201,7 @@ namespace Game
                         board[i, j].isPassable = true;
                         board[i, j].originalSymbol = "o";
                         board[i, j].isOccupied = true;
-                        board[i, j].isBar = true;
-
-                        //Adds bar stools to list for NPC movement
-                        destinations.Add(new int[] { i, j });
+                        board[i, j].isBar = true;                        
                     }                   
                 }
             }
@@ -211,20 +212,14 @@ namespace Game
             int origY = y;
 
             //Loop for creating a pool table in desired area and width and height.
-            for (i = x; i < x + h; i++)
-            {
-                for (j = y; j < y + l; j++)
-                {     
-                    if (i > origX && j < l)
-                    {
-                        board[i, j].originalColor = ConsoleColor.DarkGreen;
-                        board[i, j].originalSymbol = "█";
-                        board[i, j].isPassable = false;                        
-                        board[i, j].isOccupied = true;
+            for (i = x; i < x + h; i++) {
 
-                        //Adds table coordinates for NPC movement
-                        destinations.Add(new int[] { i, j });
-                    }             
+               for (j = y; j < y + l; j++)
+                {                    
+                   board[i, j].originalColor = ConsoleColor.DarkGreen;
+                   board[i, j].originalSymbol = "█";
+                   board[i, j].isPassable = false;                        
+                   board[i, j].isOccupied = true;                    
                 }
             }           
 
@@ -273,9 +268,6 @@ namespace Game
                         board[i, j].originalColor = ConsoleColor.White;
                         board[i, j].isPassable = true;
                         board[i, j].originalSymbol = "o";
-
-                        //Adds seats to the list for NPC movement
-                        destinations.Add(new int[] { i, j });
                     }
                     else
                     {
@@ -288,7 +280,7 @@ namespace Game
             }          
         }
 
-        //Showboard method
+        //Showboard function
         public void showBoard()
         {
             for (int i = 0; i <= height - 1; i++)
@@ -296,23 +288,31 @@ namespace Game
                 for (int j = 0; j <= length - 1; j++)
                 {
                     Console.ForegroundColor = board[i, j].originalColor;
+                     
                     if (board[i, j].playerHere == true)
                     {
                         board[i, j].symbol = "@";
                         board[i, j].color = ConsoleColor.White;
                         Console.Write(board[i, j].symbol);
-                    }         
+                    }
+                    if (board[i, j].npcHere == true)
+                    {
+                        board[i, j].symbol = "☻";
+                        board[i, j].color = ConsoleColor.White;
+                        Console.Write(board[i, j].symbol);
+                    }
                     else
                     {
                         Console.Write(board[i, j].originalSymbol);
-                    }                                       
+                    }
                 }
                 Console.WriteLine("");
-            }     
+            }
 
-       }   
-   
-    public Player placePlayer(int x, int y, Player p)
+        }
+
+
+        public Player placePlayer(int x, int y, Player p)
     {
         Player player = p;        
         int playerX = x;
@@ -337,118 +337,41 @@ namespace Game
         player.coordX = playerX;
 
         return player;
+        } 
 
-        }
-        //Subject to be removed, unsure if it is still necessary or useful.
-        public void placeObject(string objectToPlace, string symbol, ConsoleColor color, bool passable)
-        {         
-            //Generates coordinates
-            int X = StaticRandom.Instance.Next(0, height - 1);
-            int Y = StaticRandom.Instance.Next(0, length - 1);
-
-            //While player coordinates are occupied or a wall, create new coordinates
-            while (board[X, Y].isOccupied == true || board[X,Y].originalSymbol == "#")
-            {
-                X = StaticRandom.Instance.Next(0, height - 1);
-                Y = StaticRandom.Instance.Next(0, length - 1);
-
-            }
-            //Sets tile properties for object
-            board[X, Y].isPassable = passable;
-            board[X, Y].isOccupied = true;
-            board[X, Y].originalColor = color;
-            board[X, Y].originalSymbol = symbol;
-
-        }
-
-        /*
-        NPC MOVEMENT LOGIC:
-
-        Destinations List used for coordinates of destinations for NPCS.
-        
-        Use random Coordinate from list as NPC Destination.
-           
-        Head towards the destination. Destination = null when it is reached.
-
-        If destination = null get a new random coordinate. 
-        
-        */
-        public void npcMovement(NPC p)
+        public void createIsland(int x, int y, int h, int l)
         {
-            //Random numbers to be used in indexing the destinations array
-            int randomX = StaticRandom.Instance.Next(1, destinations.Count - 1);
-            int randomY = StaticRandom.Instance.Next(1, destinations.Count - 1);
+            int mpX = h / 2 + x;
+            int mpY = l / 2 + y;
 
-            //Loop that runs for the length of array
-            //(Will only be ran once to get a path from one to another)
-            for (int index = 1; index < destinations.Count; index++)
-             {
-
-            //Sets the x and y coordinates together in an array, use same format to grab random destination
-            int[] m1 = destinations[index - 1];
-            int[] m2 = destinations[index];
-
-                //Set coordinates to specific variables
-                //Testing just getting a single path and not multiple as it did previously
-                int x1 = m1[0];
-                int y1 = m1[1];
-                int x2 = p.destination[0];
-                int y2 = p.destination[1];
-
-                /*
-                //Set coordinates to specific variables
-                int x1 = m1[0];
-                int y1 = m1[1];
-                int x2 = m2[0];
-                int y2 = m2[1];*/
-
-                //If statement X Coordinate
-                if (x1 > x2)
+            //For loop that creates the eye
+            for (i = x; i < x + h; i++)
+            {
+                if (i == x || i == h)
                 {
-                    //For loop that writes the X axis corridor
-                    for (i = x1; i > x2; i--)
+                    for (j = y + 2; j < y + l - 2; j++)
                     {
-                        board[i, y1].color = ConsoleColor.White;
-                        board[i, y1].originalSymbol = "&";
-
-                        showBoard();
-                        Console.ReadKey();
+                        board[i, j].color = ConsoleColor.Red;
+                        board[i, j].originalSymbol = "#";
                     }
                 }
-                else if (x1 <= x2)
+                else
                 {
-                    for (i = x1; i < x2; i++)
-                    {
-                        board[i, y1].color = ConsoleColor.White;
-                        board[i, y1].originalSymbol = "&";
-                        }
+                    for (j = y; j < y + l; j++)
+                    {                        
+                        board[i, j].color = ConsoleColor.Red;
+                        board[i, j].originalSymbol = "#";
                     }
-                
-                //If statement for Y coordinate
-                if (y1 > y2)
-                {
-                    //For loop that creates the Y axis corridor
-                    for (j = y1; j > y2; j--)
-                    {
-                        board[i, j].color = ConsoleColor.White;
-                        board[i, j].originalSymbol = "&";
-                        }
-                    }
-                
-                else if (y1 <= y2)
-                {
-                    for (j = y1; j < y2; j++)
-                    {
-                        board[i, j].color = ConsoleColor.White;
-                        board[i, j].originalSymbol = "&";
-                        }
-                    }
-                
+                }
             }
-            
-            }
+            //For loop sets the middle of the island
+            for (i = mpX - 1; i <= h; i++)
+            {
+                board[i, mpY].originalSymbol = " ";
+            }            
         }
     }
+  }
 
 
 

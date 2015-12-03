@@ -8,10 +8,16 @@ namespace Game
 {
     public class NPC
     {
-        //Used for NPC Movement (LOUIS: Feel free to move wherever you find neccesary, I'm just testing. )
-        public int[] destination = new int[2];
+        //Used for tracking player location
+        public int coordY;
+        public int coordX;
 
-        string name;
+        //Used for NPC Movement
+        public int destinationX;
+        public int destinationY;        
+        public bool destination = false;
+
+        public string name;
         int aggression, moxie, humor;
         /* TODO
          * finish base NPC
@@ -27,6 +33,7 @@ namespace Game
             moxie = m;
             humor = h;
         }
+        
         public void talk()
         {
             Console.Write("HI!");
@@ -57,6 +64,6 @@ namespace Game
                 return false;
             else
                 return true;
-        }
+        }        
     }
 }
