@@ -22,15 +22,6 @@ namespace Game
         int i;
         int j;
 
-        public List<NPC> npcs = new List<NPC> { new NPC("Name"),
-                                            new NPC("Name"),
-                                            new NPC("Name"),
-                                            new NPC("Name"),
-                                            new NPC("Name"),
-                                            new NPC("Name"),
-                                            new NPC("Name"),
-                                            new NPC("Name"),                                            
-                                                            };
         //List used to connect rooms
         List<int[]> midpoints = new List<int[]>();
 
@@ -94,16 +85,6 @@ namespace Game
                 {
                     index--;
                 }
-            }
-            
-            for (int i = 0; i < npcs.Count; i++)
-            {
-                npcs[i].coordX = StaticRandom.Instance.Next(3, 17);
-                npcs[i].coordY = StaticRandom.Instance.Next(3, 17);
-                board[npcs[i].coordX, npcs[i].coordY].npcHere = true;
-                npcs[i].destinationX = StaticRandom.Instance.Next(1, length-2);
-                npcs[i].destinationY = StaticRandom.Instance.Next(1, length -2);
-                npcs[i].destination = true;
             }
 
             //createIsland(11, 11, 3, 7);
@@ -323,8 +304,8 @@ namespace Game
         playerY = StaticRandom.Instance.Next(0,length - 1);
 
         //While player coordinates are on a wall or stairs loop with new coordinates
-        while (board[playerX, playerY].originalSymbol == "#" || board[playerX, playerY].isOccupied == true)
-        {
+        while (board[playerX, playerY].originalSymbol == "#" || board[playerX, playerY].isOccupied == true || board[playerX, playerY].npcHere == true)
+            {
             playerX = StaticRandom.Instance.Next(0, height - 1);
             playerY = StaticRandom.Instance.Next(0, length - 1);
 
@@ -338,6 +319,19 @@ namespace Game
 
         return player;
         } 
+        public void placeNPC(List<NPC> npcs)
+        {
+            for (int i = 0; i < npcs.Count; i++)
+            {
+                npcs[i].coordX = StaticRandom.Instance.Next(3, 17);
+                npcs[i].coordY = StaticRandom.Instance.Next(3, 17);
+                board[npcs[i].coordX, npcs[i].coordY].npcHere = true;
+                npcs[i].destinationX = StaticRandom.Instance.Next(1, length - 2);
+                npcs[i].destinationY = StaticRandom.Instance.Next(1, length - 2);
+                npcs[i].destination = true;
+            }
+
+        }
 
         public void createIsland(int x, int y, int h, int l)
         {

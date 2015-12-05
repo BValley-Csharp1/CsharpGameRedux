@@ -8,7 +8,7 @@ namespace Game
 {
     class generateNPC
     {
-        List<NPC> characters = new List<NPC>();
+        public List<NPC> characters = new List<NPC>();
 
         public generateNPC()
         {
@@ -27,14 +27,11 @@ namespace Game
             characters.Add(new LoverNPC("Sasha"));
             characters.Add(new KlutzNPC("Rebecca"));
             characters.Add(new JokerNPC("Tina"));
-
-
         }
 
         public NPC getNPC()
         {
             return characters[StaticRandom.Instance.Next(1, characters.Count - 1)];
         }
-       
     }
 }

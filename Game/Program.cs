@@ -159,12 +159,16 @@ namespace Game
 
              Player p1 = new Player(c_class);
 
-             Console.Clear();            
+             Console.Clear();
 
-             //Creates and displays board
-             Board board = new Board(20, 40);
-             board.placePlayer(p1.coordX, p1.coordY, p1);
-             board.showBoard();
+            //Generates the NPCS
+            generateNPC npcs = new generateNPC();            
+
+            //Creates and displays board
+            Board board = new Board(20, 40);
+            board.placeNPC(npcs.characters);
+            board.placePlayer(p1.coordX, p1.coordY, p1);
+            board.showBoard();
 
             /*
              int d;
@@ -187,22 +191,25 @@ namespace Game
 
              //p1.chooseDrink(d);   
              */
+
             
+           
+
             int gameoverCount =0;
             //Test loop for player movement, will be arranged for main game loop
             while (gameoverCount != 1000)
             {
-                int randomNPC = StaticRandom.Instance.Next(0, board.npcs.Count);
+                int randomNPC = StaticRandom.Instance.Next(0, npcs.characters.Count);
 
-                if (board.npcs[randomNPC].destination)
+                if (npcs.characters[randomNPC].destination)
                 {
-                    npcMove(board, board.npcs[randomNPC]);
+                    npcMove(board, npcs.characters[randomNPC]);
                 }
                 else
                 {
-                    board.npcs[randomNPC].destinationX = StaticRandom.Instance.Next(3, 14);
-                    board.npcs[randomNPC].destinationY = StaticRandom.Instance.Next(3, 14);
-                    board.npcs[randomNPC].destination = true;
+                    npcs.characters[randomNPC].destinationX = StaticRandom.Instance.Next(3, 14);
+                    npcs.characters[randomNPC].destinationY = StaticRandom.Instance.Next(3, 14);
+                    npcs.characters[randomNPC].destination = true;
                 }
                 gameoverCount++;
                 playerMove(p1.coordX, p1.coordY, board, p1, p1.bac, p1.stepsTaken);

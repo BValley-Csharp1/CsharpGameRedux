@@ -10,12 +10,12 @@ namespace Game
         {
 
         }
-        public override void talk()
+       /* public override void talk()
         {
             List<string> phrases = new List<string>();
             phrases.Add("*stumbles*");
             Console.Write(phrases[StaticRandom.Instance.Next(1, phrases.Count - 1)]);
 
-        }
+        }*/
     }
 }
