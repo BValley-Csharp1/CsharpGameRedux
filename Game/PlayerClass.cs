@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Game
 {
@@ -19,7 +18,7 @@ namespace Game
 
         public int bac { get; set; }
 
-        List<int> evidence = new List<int>();
+        int evidence = 0;
         public Player(int c)
         {
             determineClass(c);
@@ -64,7 +63,7 @@ namespace Game
                 humor = 9;
             }
         }
-        
+
         public void chooseDrink()
         {
             int d;
@@ -75,7 +74,7 @@ namespace Game
                               "3. Screwdriver \n" +
                               "4. Wine \n" +
                               "5. Whiskey \n" +
-                               "6. Gin Tonic \n" +
+                              "6. Gin Tonic \n" +
                               "7. Long Island Tea \n" +
                               "Press Esc to exit.");
             if (Console.ReadKey(true).Key == ConsoleKey.Escape)

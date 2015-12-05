@@ -9,12 +9,12 @@ namespace Game
     class Drinks
     {
         int aggression, moxie, humor;
-        public int Aggression {get; set;}
+        public int Aggression { get; set; }
         public int Moxie { get; set; }
         public int Humor { get; set; }
         public Drinks()
         {
-            
+
         }
 
         public Drinks(int aggression, int moxie, int humor)
@@ -26,7 +26,7 @@ namespace Game
 
         public void beer(int aggression, int moxie, int humor)
         {
-            
+
             aggression = (aggression + 1);
             moxie = (moxie + 1);
             humor = (humor + 1);
@@ -40,9 +40,9 @@ namespace Game
             humor = (humor + 1);
             Humor = humor;
         }
-        public void screwdriver(int[] stats)
+        public void screwdriver(int aggression)
         {
-            aggression = (stats[0] + (1));
+            aggression = (aggression + 1);
             Aggression = aggression;
         }
         public void wine(int moxie)
@@ -65,5 +65,6 @@ namespace Game
             humor = humor + 2;
             Humor = humor;
         }
+
     }
 }
