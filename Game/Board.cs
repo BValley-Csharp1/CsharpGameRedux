@@ -78,7 +78,7 @@ namespace Game
                 int pooll = 3;
 
                 //Creates the pool table if coordinates are available.
-                if (checkBar(poolx + 1, pooly + 1, poolh + 1, pooll + 1))
+                if (checkBar(poolx + 2, pooly + 2, poolh + 2, pooll + 2))
                 {
                     createPoolTable(poolx, pooly, poolh, pooll);
                 }
@@ -145,7 +145,7 @@ namespace Game
                     {
                         return false;
                     }
-                    //Checks if its in a room
+                    //Checks if its not in a room
                     if (board[i, j].originalSymbol != "." )
                     {
                         return false;
@@ -248,6 +248,7 @@ namespace Game
                         //Creates seats at the table 
                         board[i, j].originalColor = ConsoleColor.White;
                         board[i, j].isPassable = true;
+                        board[i, j].isOccupied = true;
                         board[i, j].originalSymbol = "o";
                     }
                     else
@@ -255,6 +256,7 @@ namespace Game
                         //Creates the table
                         board[i, j].originalColor = ConsoleColor.Yellow;
                         board[i, j].isPassable = false;
+                        board[i, j].isOccupied = true;
                         board[i, j].originalSymbol = "░";
                     }                
                 }
@@ -326,12 +328,24 @@ namespace Game
 
         return player;
         } 
+
+        //Function used for placing npcs
+
         public void placeNPC(List<NPC> npcs)
         {
             for (int i = 0; i < npcs.Count; i++)
             {
-                npcs[i].coordX = StaticRandom.Instance.Next(3, height -2);
-                npcs[i].coordY = StaticRandom.Instance.Next(3, length-2);
+                npcs[i].coordX = StaticRandom.Instance.Next(3, height - 2);
+                npcs[i].coordY = StaticRandom.Instance.Next(3, length - 2);
+
+                //Loop with new coordinates while it is occupied.
+                while (board[npcs[i].coordX, npcs[i].coordY].isOccupied)
+                {
+                    npcs[i].coordX = StaticRandom.Instance.Next(3, height - 2);
+                    npcs[i].coordY = StaticRandom.Instance.Next(3, length - 2);
+
+                }
+                //For each npc in list, give them a location and a destination.                
                 board[npcs[i].coordX, npcs[i].coordY].npcHere = true;
                 npcs[i].destinationX = StaticRandom.Instance.Next(1, height - 2);
                 npcs[i].destinationY = StaticRandom.Instance.Next(1, length - 2);
