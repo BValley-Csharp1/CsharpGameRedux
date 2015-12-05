@@ -8,9 +8,8 @@ namespace Game
     
     class Program
     {
-        public static void playerMove(int x, int y, Board b, Player p, int bac, int steps)
+        public static void playerMove(int x, int y, Board b, Player p, int bac, int steps, NPC npc)
         {
-
             //If statement to decrease BAC a level every 100 steps.
             if (p.stepsTaken == 100)
             {
@@ -22,6 +21,11 @@ namespace Game
             switch (keyInfo.Key)
             {
                 case ConsoleKey.UpArrow:
+                    if(b.board[x - 1, y].npcHere)
+                    {
+                        npc.talk();
+                        Console.ReadKey();
+                    }
                     if (b.board[x - 1, y].isPassable)
                     {
                         b.board[x, y].playerHere = false;
@@ -32,6 +36,11 @@ namespace Game
                     }
                     break;
                 case ConsoleKey.DownArrow:
+                    if (b.board[x + 1, y].npcHere)
+                    {
+                        npc.talk();
+                        Console.ReadKey();
+                    }
                     if (b.board[x + 1, y].isPassable)
                     {
                         b.board[x, y].playerHere = false;
@@ -42,6 +51,11 @@ namespace Game
                     }
                     break;
                 case ConsoleKey.RightArrow:
+                    if (b.board[x, y + 1].npcHere)
+                    {
+                        npc.talk();
+                        Console.ReadKey();
+                    }
                     if (b.board[x, y + 1].isPassable)
                     {
                         b.board[x, y].playerHere = false;
@@ -52,6 +66,11 @@ namespace Game
                     }
                     break;
                 case ConsoleKey.LeftArrow:
+                    if (b.board[x, y - 1].npcHere)
+                    {
+                        npc.talk();
+                        Console.ReadKey();
+                    }
                     if (b.board[x, y - 1].isPassable)
                     {
                         b.board[x, y].playerHere = false;
@@ -73,8 +92,10 @@ namespace Game
                 if (b.board[npc.coordX - 1, npc.coordY].isPassable)
                 {
                     b.board[npc.coordX, npc.coordY].npcHere = false;
+                    b.board[npc.coordX, npc.coordY].isPassable = true;
                     npc.coordX -= 1;
-                    b.board[npc.coordX, npc.coordY].npcHere = true;                 
+                    b.board[npc.coordX, npc.coordY].npcHere = true;
+                    b.board[npc.coordX, npc.coordY].isPassable = false;
 
                 }
                 else
@@ -87,8 +108,10 @@ namespace Game
                 if (b.board[npc.coordX + 1, npc.coordY].isPassable)
                 {
                     b.board[npc.coordX, npc.coordY].npcHere = false;
+                    b.board[npc.coordX, npc.coordY].isPassable = true;
                     npc.coordX += 1;
                     b.board[npc.coordX, npc.coordY].npcHere = true;
+                    b.board[npc.coordX, npc.coordY].isPassable = false;
                 }
                 else
                 {
@@ -104,8 +127,10 @@ namespace Game
                     if (b.board[npc.coordX, npc.coordY + 1].isPassable)
                     {
                         b.board[npc.coordX, npc.coordY].npcHere = false;
+                        b.board[npc.coordX, npc.coordY].isPassable = true;
                         npc.coordY += 1;
                         b.board[npc.coordX, npc.coordY].npcHere = true;
+                        b.board[npc.coordX, npc.coordY].isPassable = false;
                     }
                     else
                     {
@@ -117,8 +142,10 @@ namespace Game
                     if (b.board[npc.coordX, npc.coordY - 1].isPassable)
                     {
                         b.board[npc.coordX, npc.coordY].npcHere = false;
+                        b.board[npc.coordX, npc.coordY].isPassable = true;
                         npc.coordY -= 1;
                         b.board[npc.coordX, npc.coordY].npcHere = true;
+                        b.board[npc.coordX, npc.coordY].isPassable = false;
                     }
                     else
                     {
@@ -212,7 +239,7 @@ namespace Game
                     npcs.characters[randomNPC].destination = true;
                 }
                 gameoverCount++;
-                playerMove(p1.coordX, p1.coordY, board, p1, p1.bac, p1.stepsTaken);
+                playerMove(p1.coordX, p1.coordY, board, p1, p1.bac, p1.stepsTaken, npcs.characters[randomNPC]);
                 
                 if (gameoverCount == 1000)
                 {
@@ -227,6 +254,7 @@ namespace Game
                     p1.chooseDrink();
 
                 }
+                
                 //Add if statement when npcs run into the player movement. 
                 Console.Clear();
                 board.showBoard();

@@ -52,19 +52,16 @@ namespace Game
             {
                 createBar(2, 3, 2, 8);
             }
+            
 
-            //Loop for creating a pool table
-            for (int index = 0; index < 1; index++)
+            //For loop to generate 4 tables randomly
+            for (int index = 0; index <= 4; index++)
             {
-                int poolx = StaticRandom.Instance.Next(1, height - 3);                
-                int pooly = StaticRandom.Instance.Next(1, length - 3);
-                int poolh = 2;
-                int pooll = 3;
-
-                //Creates the pool table if coordinates are available.
-                if (checkBar(poolx, pooly, poolh, pooll))
+                int tablex = StaticRandom.Instance.Next(3, height - 2);
+                int tabley = StaticRandom.Instance.Next(3, length - 2);
+                if (checkTable(tablex, tabley, 1, 3))
                 {
-                    createPoolTable(poolx, pooly, poolh, pooll);
+                    createTable(tablex, tabley, 1, 3);
                 }
                 else
                 {
@@ -72,14 +69,18 @@ namespace Game
                 }
             }
 
-            //For loop to generate 4 tables randomly
-            for (int index = 0; index <= 4; index++)
+            //Loop for creating a pool table
+            for (int index = 0; index < 1; index++)
             {
-                int tablex = StaticRandom.Instance.Next(3, height - 1);
-                int tabley = StaticRandom.Instance.Next(3, height - 1);
-                if (checkTable(tablex, tabley, 1, 3))
+                int poolx = StaticRandom.Instance.Next(1, height - 3);
+                int pooly = StaticRandom.Instance.Next(1, length - 3);
+                int poolh = 2;
+                int pooll = 3;
+
+                //Creates the pool table if coordinates are available.
+                if (checkBar(poolx + 1, pooly + 1, poolh + 1, pooll + 1))
                 {
-                    createTable(tablex, tabley, 1, 3);
+                    createPoolTable(poolx, pooly, poolh, pooll);
                 }
                 else
                 {
@@ -130,7 +131,6 @@ namespace Game
                 }
             }
             midpoints.Add(new int[] { mpX, mpY });
-
         }
 
         public bool checkBar(int x, int y, int h, int l)
@@ -269,21 +269,28 @@ namespace Game
                 for (int j = 0; j <= length - 1; j++)
                 {
                     Console.ForegroundColor = board[i, j].originalColor;
-                     
-                    if (board[i, j].playerHere == true)
+                    //Checks if player or npc are temporarily on the current spot 
+                    if (board[i, j].playerHere == true || board[i, j].npcHere == true)
                     {
-                        board[i, j].symbol = "@";
-                        board[i, j].color = ConsoleColor.White;
-                        Console.Write(board[i, j].symbol);
-                    }
-                    if (board[i, j].npcHere == true)
-                    {
-                        board[i, j].symbol = "☻";
-                        board[i, j].color = ConsoleColor.White;
-                        Console.Write(board[i, j].symbol);
-                    }
+                        
+                        if (board[i, j].playerHere == true)
+                        {
+                            board[i, j].symbol = "@";
+                            board[i, j].color = ConsoleColor.White;
+                            Console.ForegroundColor = board[i, j].color;
+                            Console.Write(board[i, j].symbol);
+                        }
+                        if (board[i, j].npcHere == true)
+                        {
+                            board[i, j].symbol = "☻";
+                            board[i, j].color = ConsoleColor.Red;
+                            Console.ForegroundColor = board[i, j].color;
+                            Console.Write(board[i, j].symbol);
+                        }                        
+                    } 
+                    //Otherwise, display the normal symbol.                   
                     else
-                    {
+                    {                        
                         Console.Write(board[i, j].originalSymbol);
                     }
                 }
@@ -323,10 +330,10 @@ namespace Game
         {
             for (int i = 0; i < npcs.Count; i++)
             {
-                npcs[i].coordX = StaticRandom.Instance.Next(3, 17);
-                npcs[i].coordY = StaticRandom.Instance.Next(3, 17);
+                npcs[i].coordX = StaticRandom.Instance.Next(3, height -2);
+                npcs[i].coordY = StaticRandom.Instance.Next(3, length-2);
                 board[npcs[i].coordX, npcs[i].coordY].npcHere = true;
-                npcs[i].destinationX = StaticRandom.Instance.Next(1, length - 2);
+                npcs[i].destinationX = StaticRandom.Instance.Next(1, height - 2);
                 npcs[i].destinationY = StaticRandom.Instance.Next(1, length - 2);
                 npcs[i].destination = true;
             }

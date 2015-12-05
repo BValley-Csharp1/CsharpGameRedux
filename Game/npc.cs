@@ -34,7 +34,7 @@ namespace Game
             humor = h;
         }
         
-        public void talk()
+        public virtual void talk()
         {
             Console.Write("HI!");
             Console.WriteLine("1. Scrapper \n" +
