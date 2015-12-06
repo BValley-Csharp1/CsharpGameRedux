@@ -19,6 +19,24 @@ namespace Game
             Console.ReadKey();
             Console.Clear();
         }
+        public static void BarClosed()
+        {
+            Console.Clear();
+            Console.WriteLine("*** BAR CLOSED ***");
+            Console.WriteLine("\nAfter another typical night and many stumbling happy, sad, and pathetic drunks. The bar is now closed.");
+            Console.WriteLine("\nBasically this is our nice way of saying: Go Home!!");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        public static void PassedOut()
+        {
+            Console.Clear();
+            Console.WriteLine("*** YOU PASSED OUT ***");
+            Console.WriteLine("\nAfter a crazy night of heavy drinking you FINALLY passed out and now the bar can rejoice without you distrupting the patrons.");
+            Console.WriteLine("\nYou have problems.");
+            Console.ReadKey();
+            Console.Clear();
+        }
         static void Main(string[] args)
         {
             Intro();                   
@@ -80,7 +98,7 @@ namespace Game
             //Game ends at 1000 steps
             int gameoverCount =0;
             //Main game loop
-            while (gameoverCount != 1000)
+            while (gameoverCount != 10)
             {
                 //Select a random NPC to move
                 int randomNPC = StaticRandom.Instance.Next(0, npcs.characters.Count);
@@ -108,12 +126,9 @@ namespace Game
                 Console.Clear();
                 board.showBoard();
             }
+            //BarClosed();
+            PassedOut();
 
-
-            //GameOver
-            Console.Clear();
-            Console.WriteLine("You've run out of time!");
-            Console.ReadKey();
             
         }
     }
