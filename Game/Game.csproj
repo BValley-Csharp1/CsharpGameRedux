@@ -50,6 +50,7 @@
     <Compile Include="JokerNPC.cs" />
     <Compile Include="KlutzNPC.cs" />
     <Compile Include="LoverNPC.cs" />
+    <Compile Include="movement.cs" />
     <Compile Include="npc.cs" />
     <Compile Include="PlayerClass.cs" />
     <Compile Include="Program.cs" />

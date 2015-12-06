@@ -7,163 +7,21 @@ namespace Game
 {
     
     class Program
-    {
-        public static void playerMove(int x, int y, Board b, Player p, int bac, int steps, NPC npc)
+    {    
+        public static void Intro()
         {
-            //If statement to decrease BAC a level every 100 steps.
-            if (p.stepsTaken == 100)
-            {
-                p.stepsTaken = 0;
-                p.bac -= 1;
-            }
-            //50 for drink possession
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    if(b.board[x - 1, y].npcHere)
-                    {
-                        npc.talk();
-                        Console.ReadKey();
-                    }
-                    if (b.board[x - 1, y].isPassable)
-                    {
-                        b.board[x, y].playerHere = false;
-                        x -= 1;
-                        b.board[x, y].playerHere = true;
-                        p.coordX = x;
-                        p.stepsTaken++;
-                    }
-                    break;
-                case ConsoleKey.DownArrow:
-                    if (b.board[x + 1, y].npcHere)
-                    {
-                        npc.talk();
-                        Console.ReadKey();
-                    }
-                    if (b.board[x + 1, y].isPassable)
-                    {
-                        b.board[x, y].playerHere = false;
-                        x += 1;
-                        b.board[x, y].playerHere = true;
-                        p.coordX = x;
-                        p.stepsTaken++;
-                    }
-                    break;
-                case ConsoleKey.RightArrow:
-                    if (b.board[x, y + 1].npcHere)
-                    {
-                        npc.talk();
-                        Console.ReadKey();
-                    }
-                    if (b.board[x, y + 1].isPassable)
-                    {
-                        b.board[x, y].playerHere = false;
-                        y += 1;
-                        b.board[x, y].playerHere = true;
-                        p.coordY = y;
-                        p.stepsTaken++;
-                    }
-                    break;
-                case ConsoleKey.LeftArrow:
-                    if (b.board[x, y - 1].npcHere)
-                    {
-                        npc.talk();
-                        Console.ReadKey();
-                    }
-                    if (b.board[x, y - 1].isPassable)
-                    {
-                        b.board[x, y].playerHere = false;
-                        y -= 1;
-                        b.board[x, y].playerHere = true;
-                        p.coordY = y;
-                        p.stepsTaken++;
-                    }
-                    break;
-            }
-        }
-
-        public static void npcMove(Board b, NPC npc)
-        {
-           //Moves npcs on the X axis
-           if (npc.coordX > npc.destinationX)
-            {         
-                 //If npc comes into contact with something that cannot be passed, get new location.
-                if (b.board[npc.coordX - 1, npc.coordY].isPassable)
-                {
-                    b.board[npc.coordX, npc.coordY].npcHere = false;
-                    b.board[npc.coordX, npc.coordY].isPassable = true;
-                    npc.coordX -= 1;
-                    b.board[npc.coordX, npc.coordY].npcHere = true;
-                    b.board[npc.coordX, npc.coordY].isPassable = false;
-
-                }
-                else
-                {
-                    npc.destination = false;
-                }                    
-            }
-            else if (npc.coordX < npc.destinationX)
-            {
-                if (b.board[npc.coordX + 1, npc.coordY].isPassable)
-                {
-                    b.board[npc.coordX, npc.coordY].npcHere = false;
-                    b.board[npc.coordX, npc.coordY].isPassable = true;
-                    npc.coordX += 1;
-                    b.board[npc.coordX, npc.coordY].npcHere = true;
-                    b.board[npc.coordX, npc.coordY].isPassable = false;
-                }
-                else
-                {
-                    npc.destination = false;
-                }
-                    
-            }
-            //Once it is on it's X axis, move to the destination Y
-            if(npc.coordX == npc.destinationX)
-            {
-                if (npc.coordY < npc.destinationY)
-                {                 
-                    if (b.board[npc.coordX, npc.coordY + 1].isPassable)
-                    {
-                        b.board[npc.coordX, npc.coordY].npcHere = false;
-                        b.board[npc.coordX, npc.coordY].isPassable = true;
-                        npc.coordY += 1;
-                        b.board[npc.coordX, npc.coordY].npcHere = true;
-                        b.board[npc.coordX, npc.coordY].isPassable = false;
-                    }
-                    else
-                    {
-                        npc.destination = false;
-                    }                        
-                }
-                else if (npc.coordY > npc.destinationY)
-                {
-                    if (b.board[npc.coordX, npc.coordY - 1].isPassable)
-                    {
-                        b.board[npc.coordX, npc.coordY].npcHere = false;
-                        b.board[npc.coordX, npc.coordY].isPassable = true;
-                        npc.coordY -= 1;
-                        b.board[npc.coordX, npc.coordY].npcHere = true;
-                        b.board[npc.coordX, npc.coordY].isPassable = false;
-                    }
-                    else
-                    {
-                        npc.destination = false;
-                    }                                            
-                }
-
-                //Once it has reached it's destination set it to false to receieve a new destination
-                if(npc.coordY == npc.destinationY)
-                {
-                    npc.destination = false;
-                }
-            }
-             
+            Console.WriteLine("*** WELCOME ***");
+            Console.WriteLine("Before we begin the game, there are a few things you need to know.");
+            Console.WriteLine("\nMovement: \nTo move, press the corresponding arrow key as to where you'd like to go.");
+            Console.WriteLine("\nGame Symbols and Their Meanings: \n# = walls \n. = floor \n☻ = bar patrons \n@ = player \no░o = a table and two stools");
+            Console.WriteLine("\n░░░░░░\noooooo = the bar and stools \n\n███\n███ = the pool table");
+            Console.WriteLine("\nWalk around, order a drink, and chat with the patrons until the bar closes or you pass out.");
+            Console.ReadKey();
+            Console.Clear();
         }
         static void Main(string[] args)
         {
-                                    
+            Intro();                   
              Console.WriteLine("Choose a character class");
              Console.WriteLine("1. Scrapper \n" +
                                "2. Frat \n" +
@@ -219,46 +77,44 @@ namespace Game
              //p1.chooseDrink(d);   
              */
 
-            
-           
-
+            //Game ends at 1000 steps
             int gameoverCount =0;
-            //Test loop for player movement, will be arranged for main game loop
+            //Main game loop
             while (gameoverCount != 1000)
             {
+                //Select a random NPC to move
                 int randomNPC = StaticRandom.Instance.Next(0, npcs.characters.Count);
-
+                
+                //Checks if the NPC has reached it's destination, if not move. 
                 if (npcs.characters[randomNPC].destination)
                 {
-                    npcMove(board, npcs.characters[randomNPC]);
-                }
+                    Movement.npcMove(board, npcs.characters[randomNPC]);
+                }                
                 else
                 {
+                    //Gives NPC new location
                     npcs.characters[randomNPC].destinationX = StaticRandom.Instance.Next(3, 14);
                     npcs.characters[randomNPC].destinationY = StaticRandom.Instance.Next(3, 14);
                     npcs.characters[randomNPC].destination = true;
                 }
                 gameoverCount++;
-                playerMove(p1.coordX, p1.coordY, board, p1, p1.bac, p1.stepsTaken, npcs.characters[randomNPC]);
+                Movement.playerMove(p1.coordX, p1.coordY, board, p1, p1.bac, p1.stepsTaken, npcs.characters[randomNPC]);
                 
-                if (gameoverCount == 1000)
-                {
-                    //Create an intro and end game function(Writelines, ect are just placeholders.)
-                    Console.Clear();
-                    Console.WriteLine("You've run out of time!");
-                    Console.ReadKey();
-                    break;
-                }
+                //If player moves to bar, call the chooseDrink() method
                 if (board.board[p1.coordX, p1.coordY].isBar)
                 {
                     p1.chooseDrink();
-
-                }
-                
-                //Add if statement when npcs run into the player movement. 
+                }                
                 Console.Clear();
                 board.showBoard();
-            }          
+            }
+
+
+            //GameOver
+            Console.Clear();
+            Console.WriteLine("You've run out of time!");
+            Console.ReadKey();
+            
         }
     }
 }

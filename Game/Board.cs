@@ -46,13 +46,28 @@ namespace Game
             {
                 createRoom(1, 1, 17, 37);
             }
+            //Loop for creating a pool table
+            for (int index = 0; index < 1; index++)
+            {
+                int poolx = StaticRandom.Instance.Next(2, height - 3);
+                int pooly = StaticRandom.Instance.Next(2, length - 3);
+                int poolh = 2;
+                int pooll = 3;
 
-            //Eventually add a roll for the different types of bars
+                //Creates the pool table if coordinates are available.
+                if (checkBar(poolx + 2, pooly + 2, poolh + 2, pooll + 2))
+                {
+                    createPoolTable(poolx, pooly, poolh, pooll);
+                }
+                else
+                {
+                    index--;
+                }
+            }
             if (checkBar(2, 3, 2, 8))
             {
                 createBar(2, 3, 2, 8);
-            }
-            
+            }           
 
             //For loop to generate 4 tables randomly
             for (int index = 0; index <= 4; index++)
@@ -67,26 +82,7 @@ namespace Game
                 {
                     index--;
                 }
-            }
-
-            //Loop for creating a pool table
-            for (int index = 0; index < 1; index++)
-            {
-                int poolx = StaticRandom.Instance.Next(1, height - 3);
-                int pooly = StaticRandom.Instance.Next(1, length - 3);
-                int poolh = 2;
-                int pooll = 3;
-
-                //Creates the pool table if coordinates are available.
-                if (checkBar(poolx + 2, pooly + 2, poolh + 2, pooll + 2))
-                {
-                    createPoolTable(poolx, pooly, poolh, pooll);
-                }
-                else
-                {
-                    index--;
-                }
-            }
+            }           
 
             //createIsland(11, 11, 3, 7);
 
@@ -330,7 +326,6 @@ namespace Game
         } 
 
         //Function used for placing npcs
-
         public void placeNPC(List<NPC> npcs)
         {
             for (int i = 0; i < npcs.Count; i++)
