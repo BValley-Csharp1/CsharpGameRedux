@@ -96,9 +96,9 @@ namespace Game
              */
 
             //Game ends at 1000 steps
-            int gameoverCount =0;
+            int gameoverCount = 0;
             //Main game loop
-            while (gameoverCount != 10)
+            while (gameoverCount != 1000)
             {
                 //Select a random NPC to move
                 int randomNPC = StaticRandom.Instance.Next(0, npcs.characters.Count);
@@ -126,10 +126,7 @@ namespace Game
                 Console.Clear();
                 board.showBoard();
             }
-            //BarClosed();
-            PassedOut();
-
-            
+            BarClosed();         
         }
     }
 }

@@ -3,15 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Media;
 
-/*
-NOTES- Julianna
-1) Fix the environment creation to ensure it works properly (Decrease amount of code.)
-2) Finish NPC Movement and place NPCs
-3) Edit Bar creation for different types.
-4) Once it is working correctly, clean code.
-5) Certain drunk level allows you to get on the table and behidn the bar
-*/
-
 namespace Game
 {
     class Board
@@ -22,7 +13,7 @@ namespace Game
         int i;
         int j;
 
-        //List used to connect rooms
+        //List used for center of room to place island bar
         List<int[]> midpoints = new List<int[]>();
 
         public Board(int x, int y)
