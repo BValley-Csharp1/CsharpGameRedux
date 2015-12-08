@@ -8,6 +8,7 @@ namespace Game
     class Board
     {
         public Tile[,] board;
+        public bool endGame;
         int height;
         int length;
         int i;
@@ -74,8 +75,7 @@ namespace Game
                     index--;
                 }
             }           
-
-            //createIsland(11, 11, 3, 7);
+            
 
         }   
         public bool checkRoom(int x, int y, int h, int l)
@@ -285,6 +285,8 @@ namespace Game
                 }
                 Console.WriteLine("");
             }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Enter 'Q' to quit");
 
         }
 
@@ -340,37 +342,6 @@ namespace Game
 
         }
 
-        public void createIsland(int x, int y, int h, int l)
-        {
-            int mpX = h / 2 + x;
-            int mpY = l / 2 + y;
-
-            //For loop that creates the eye
-            for (i = x; i < x + h; i++)
-            {
-                if (i == x || i == h)
-                {
-                    for (j = y + 2; j < y + l - 2; j++)
-                    {
-                        board[i, j].color = ConsoleColor.Red;
-                        board[i, j].originalSymbol = "#";
-                    }
-                }
-                else
-                {
-                    for (j = y; j < y + l; j++)
-                    {                        
-                        board[i, j].color = ConsoleColor.Red;
-                        board[i, j].originalSymbol = "#";
-                    }
-                }
-            }
-            //For loop sets the middle of the island
-            for (i = mpX - 1; i <= h; i++)
-            {
-                board[i, mpY].originalSymbol = " ";
-            }            
-        }
     }
   }
 
