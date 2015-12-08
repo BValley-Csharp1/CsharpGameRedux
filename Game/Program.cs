@@ -125,23 +125,9 @@ namespace Game
                 }                
                 Console.Clear();
                 board.showBoard();
-                if(Console.ReadLine() == "Q" || Console.ReadLine() == "q")
-                {
-                    board.endGame = true;
-                    break;
-                }
-            }
-            if (board.endGame)
-            {
-                Console.Clear();
-                Console.WriteLine("Thanks for playing!!");
-                Console.ReadKey();
-            }
-            else
-            {
-                BarClosed();
-            }
-                    
+                
+            }            
+          BarClosed();                    
         }
     }
 }
