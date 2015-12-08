@@ -8,7 +8,6 @@ namespace Game
     class Board
     {
         public Tile[,] board;
-        public bool endGame;
         int height;
         int length;
         int i;
@@ -286,8 +285,6 @@ namespace Game
                 Console.WriteLine("");
             }
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Enter 'Q' to quit");
-
         }
 
 
