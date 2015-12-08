@@ -13,8 +13,27 @@ namespace Game
             Console.WriteLine("*** WELCOME ***");
             Console.WriteLine("Before we begin the game, there are a few things you need to know.");
             Console.WriteLine("\nMovement: \nTo move, press the corresponding arrow key as to where you'd like to go.");
-            Console.WriteLine("\nGame Symbols and Their Meanings: \n# = walls \n. = floor \n☻ = bar patrons \n@ = player \no░o = a table and two stools");
-            Console.WriteLine("\n░░░░░░\noooooo = the bar and stools \n\n███\n███ = the pool table");
+            Console.WriteLine("\nGame Symbols and Their Meanings:");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("\n#");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write(" = walls \n. = floor ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("\n☻");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write("= bar patrons");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("\no░o");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write(" = a table and two stools");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("\n\n░░░░░░\noooooo");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write(" = the bar and stools");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.Write("\n\n███\n███");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.Write(" = the pool table");
             Console.WriteLine("\nWalk around, order a drink, and chat with the patrons until the bar closes or you pass out.");
             Console.ReadKey();
             Console.Clear();
@@ -98,7 +117,7 @@ namespace Game
             //Game ends at 1000 steps
             int gameoverCount = 0;
             //Main game loop
-            while (gameoverCount != 100)
+            while (gameoverCount != 1000)
             {
                 //Select a random NPC to move
                 int randomNPC = StaticRandom.Instance.Next(0, npcs.characters.Count);
@@ -125,7 +144,7 @@ namespace Game
                 }                
                 Console.Clear();
                 board.showBoard();
-                
+
             }            
           BarClosed();                    
         }
